@@ -11,7 +11,7 @@
 #ifdef WITH_LEESA
 
 #define DOMAIN_NAMESPACE PICML
-#include "LEESA.h"
+#include "LEESA/LEESA.h"
 
 using namespace LEESA;
 

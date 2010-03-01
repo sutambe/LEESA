@@ -10,7 +10,7 @@
 
 #define DOMAIN_HAS_MUTUAL_RECURSION
 #define DOMAIN_NAMESPACE SM
-#include "LEESA.h"
+#include "LEESA/LEESA.h"
 
 void show(unsigned int t, std::string message)
 {

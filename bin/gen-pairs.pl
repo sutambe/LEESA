@@ -75,7 +75,7 @@ sub prune {
   # Extract namespace.
   elsif ($line =~ m/^namespace\s+(.*)\s+{$/) {
     $namespace = $1;
-    $line = "#include \"LEESA_VisitorAsIndex.h\"\n\n".$line;
+    $line = "#include \"LEESA/VisitorAsIndex.h\"\n\n".$line;
     return $line;
   }  
   

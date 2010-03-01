@@ -1,3 +1,14 @@
+Mon Mar  1 20:32:22 UTC 2010  Sumant Tambe  <sutambe@nospam>
+
+        * bin/gen-pairs.pl:
+
+          Update the path to LEESA/VisitorAsIndex.h
+
+        * tests/UdmApp-Linux/UdmApp-PICML.cpp:
+        * tests/UdmApp-Linux/UdmApp-SM.cpp:
+
+          Updated the test to reflect new path.
+
 Mon Mar  1 20:08:35 UTC 2010  Sumant Tambe  <sutambe@nospam>
 
           Moved LEESA from CoSMIC repository to here. For earlier
