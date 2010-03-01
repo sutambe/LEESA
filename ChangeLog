@@ -1,0 +1,201 @@
+Mon Mar  1 20:08:35 UTC 2010  Sumant Tambe  <sutambe@nospam>
+
+          Moved LEESA from CoSMIC repository to here. For earlier
+          Changelogs please see the CoSMIC repository at
+          svn://svn.dre.vanderbilt.edu/CoSMIC
+
+        * ChangeLog:
+        * License:
+        * bin:
+
+        * bin/gen-meta.py:
+        * bin/gen-pairs.pl:
+
+        * doc:
+
+        * doc/LEESA.docx:
+        * doc/LEESA.pdf:
+
+        * etc:
+
+        * etc/DSL09primitives.cpp:
+        * etc/DeploymentPlanVisitor.h:
+        * etc/DeploymentPlanVisitor.cpp:
+        * etc/LEESA.wxs:
+        * etc/UdmMPL.h:
+        * etc/UdmObjectConcept.h:
+        * etc/concept-mpl.cpp:
+        * etc/xsd:
+
+        * etc/xsd/LEESA.h:
+        * etc/xsd/LEESA.cpp:
+        * etc/xsd/LEESAConcepts.h:
+        * etc/xsd/LEESA_VisitorAsIndex.h:
+        * etc/xsd/example:
+
+        * etc/xsd/example/driver.cxx:
+        * etc/xsd/example/library.hpp:
+        * etc/xsd/example/library.xsd:
+        * etc/xsd/example/library.cpp:
+        * etc/xsd/example/library.xml:
+        * etc/xsd/example/makefile.txt:
+        * etc/xsd/example/xsd.sh:
+
+        * etc/xsd/patch:
+
+        * etc/xsd/patch/Readme.txt:
+        * etc/xsd/patch/cli.hxx:
+        * etc/xsd/patch/generator.cxx:
+        * etc/xsd/patch/makefile.txt:
+        * etc/xsd/patch/template-header.cxx:
+        * etc/xsd/patch/template-header.hxx:
+
+        * include:
+
+        * include/LEESA:
+
+        * include/LEESA/AP.cpp:
+        * include/LEESA/Carrier_Optimized.h:
+        * include/LEESA/Carrier_Optimized.cpp:
+        * include/LEESA/Carrier_Simple.h:
+        * include/LEESA/Concepts.h:
+        * include/LEESA/Expression_Traits.h:
+        * include/LEESA/Kind_Traits.h:
+        * include/LEESA/LEESA.h:
+        * include/LEESA/LEESA.cpp:
+        * include/LEESA/LeftShift.cpp:
+        * include/LEESA/Operators.cpp:
+        * include/LEESA/RightShift.cpp:
+        * include/LEESA/SP.cpp:
+        * include/LEESA/SP_Accumulation.cpp:
+        * include/LEESA/SingleStage.h:
+        * include/LEESA/VisitorAsIndex.h:
+
+        * tests:
+
+        * tests/G2SMessage-xsd:
+
+        * tests/G2SMessage-xsd/Doxyfile:
+        * tests/G2SMessage-xsd/README:
+        * tests/G2SMessage-xsd/all.xml:
+        * tests/G2SMessage-xsd/driver.cpp:
+        * tests/G2SMessage-xsd/fixed-xsd-errors.txt:
+        * tests/G2SMessage-xsd/xsd:
+
+        * tests/G2SMessage-xsd/xsd/g2sBonus.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sCabinet.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sCentral.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sCoinAcceptor.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sCommConfig.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sCommunications.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sDownload.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sEventHandler.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sGAT.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sGamePlay.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sHandpay.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sHopper.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sIdReader.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sIncludeClasses.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sIncludeConfig.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sIncludeGlobal.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sMessage.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sMeters.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sNoteAcceptor.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sNoteDispenser.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sOptionConfig.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sPlayer.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sPrinter.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sProgressive.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sVoucher.xsd:
+        * tests/G2SMessage-xsd/xsd/g2sWAT.xsd:
+
+        * tests/PICML-xsd:
+
+        * tests/PICML-xsd/PICML.xsd:
+        * tests/PICML-xsd/README:
+        * tests/PICML-xsd/driver.cxx:
+
+        * tests/SM-Win:
+
+        * tests/SM-Win/CompIcon.ico:
+        * tests/SM-Win/Component.def:
+        * tests/SM-Win/Component.rc:
+        * tests/SM-Win/ComponentConfig.h:
+        * tests/SM-Win/ComponentObj.h:
+        * tests/SM-Win/ComponentObj.cpp:
+        * tests/SM-Win/RawComponent.h:
+        * tests/SM-Win/RawComponent.cpp:
+        * tests/SM-Win/Resource.h:
+        * tests/SM-Win/SM.h:
+        * tests/SM-Win/SM.cpp:
+        * tests/SM-Win/SM.xme:
+        * tests/SM-Win/SM.xml:
+        * tests/SM-Win/SM.xmp:
+        * tests/SM-Win/SM.xsd:
+        * tests/SM-Win/SM_export.h:
+        * tests/SM-Win/SM_uml.xme:
+        * tests/SM-Win/StdAfx.h:
+        * tests/SM-Win/StdAfx.cpp:
+        * tests/SM-Win/TestSM.xme:
+        * tests/SM-Win/UdmApp.h:
+        * tests/SM-Win/UdmApp.cpp:
+        * tests/SM-Win/UdmConfig.h:
+        * tests/SM-Win/UdmConsole.h:
+        * tests/SM-Win/UdmConsole.cpp:
+        * tests/SM-Win/UdmFormatter.h:
+        * tests/SM-Win/UdmFormatter.cpp:
+        * tests/SM-Win/string_utils.h:
+
+        * tests/UdmApp-Linux:
+
+        * tests/UdmApp-Linux/PICML-orig.h:
+        * tests/UdmApp-Linux/PICML-orig.cpp:
+        * tests/UdmApp-Linux/PICML_export.h:
+        * tests/UdmApp-Linux/README:
+        * tests/UdmApp-Linux/SM-orig.h:
+        * tests/UdmApp-Linux/SM-orig.cpp:
+        * tests/UdmApp-Linux/SM_export.h:
+        * tests/UdmApp-Linux/UdmApp-PICML.h:
+        * tests/UdmApp-Linux/UdmApp-PICML.cpp:
+        * tests/UdmApp-Linux/UdmApp-SM.h:
+        * tests/UdmApp-Linux/UdmApp-SM.cpp:
+        * tests/UdmApp-Linux/UdmConfig-PICML.h:
+        * tests/UdmApp-Linux/UdmConfig-SM.h:
+
+        * tests/library-xsd:
+
+        * tests/library-xsd/README:
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/driver1stage.cxx:
+        * tests/library-xsd/library.xml:
+        * tests/library-xsd/library.xsd:
+        * tests/library-xsd/libxml2-perf.c:
+        * tests/library-xsd/lxml-perf.py:
+
+        * tests/polymorphism-xsd:
+
+        * tests/polymorphism-xsd/README:
+        * tests/polymorphism-xsd/driver.cxx:
+        * tests/polymorphism-xsd/supermen.xml:
+        * tests/polymorphism-xsd/supermen.xsd:
+
+        * tests/rss2-xsd:
+
+        * tests/rss2-xsd/README:
+        * tests/rss2-xsd/driver.cxx:
+        * tests/rss2-xsd/rss2-original.xsd:
+        * tests/rss2-xsd/rss2.xsd:
+
+        * tests/xo-impedance:
+
+        * tests/xo-impedance/README:
+        * tests/xo-impedance/driver.cxx:
+        * tests/xo-impedance/impedance.xml:
+        * tests/xo-impedance/impedance.xsd:
+
+
+Local Variables:
+mode: change-log
+add-log-time-format: (lambda () (progn (setq tz (getenv "TZ")) (set-time-zone-rule "UTC") (setq time (format-time-string "%a %b %e %H:%M:%S %Z %Y" (current-time))) (set-time-zone-rule tz) time))
+indent-tabs-mode: nil
+End:

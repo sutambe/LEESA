@@ -1,0 +1,13 @@
+1. Obtain xsd from http://www.codesynthesis.com/products/xsd/download.xhtml
+   or on Fedora 12 (or later) enter command: yum install xsdcxx
+
+2. Set $XSD_ROOT 
+
+3. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+
+4. Set $LEESA_ROOT
+
+5. make generate
+
+6. make driver
+

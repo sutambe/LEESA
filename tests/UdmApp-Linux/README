@@ -1,0 +1,16 @@
+To compile:
+
+1. Checkout LEESA 
+   svn co svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA LEESA
+
+2. Checkout UDM
+   svn co svn://svn.isis.vanderbilt.edu/MoBIES/UDM/trunk UDM
+
+3. Set UDM_PATH and LEESA_ROOT enviromental variables 
+   pointing to the root directory of the local copies of
+   UDM and LEESA respectively.
+
+4. make generate
+
+5. make object
+
