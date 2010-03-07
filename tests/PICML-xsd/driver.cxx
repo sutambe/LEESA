@@ -24,7 +24,7 @@ struct SeqType
 };
 
 /* We don't use BOOST_FOREACH here because it expands into some
- * incomprehensible code that heavily uses type-traits and inturn
+ * incomprehensible code that heavily uses type-traits and 
  * meta-programming.
  * */
 #define MY_FOREACH(TYPE, VAR, CONTAINER)                             \
@@ -52,37 +52,19 @@ get_member_child_axis(RootFolderType & rf)
   return members;
 #else
   ::SeqType<AttributeMemberType>::type members;   
-  ::SeqType<InterfaceDefinitionsType>::type ifaces = rf.InterfaceDefinitions();
-  for(::SeqType<InterfaceDefinitionsType>::type::iterator iface_iter(ifaces.begin());
-      iface_iter != ifaces.end();
-      ++iface_iter)
-      {
-        ::SeqType<FileType>::type files = iface_iter->File();
-        for(::SeqType<FileType>::type::iterator file_iter(files.begin());
-            file_iter != files.end();
-            ++file_iter)
-            {
-              ::SeqType<PackageType>::type packages = file_iter->Package();
-              for(::SeqType<PackageType>::type::iterator package_iter(packages.begin());
-                  package_iter != packages.end();
-                  ++package_iter)
-                  {
-                    ::SeqType<ComponentType>::type components = package_iter->Component();
-                    for(::SeqType<ComponentType>::type::iterator component_iter(components.begin());
-                        component_iter != components.end();
-                        ++component_iter)
-                        {
-                          ::SeqType<AttributeType>::type attrs = component_iter->Attribute();
-                          for(::SeqType<AttributeType>::type::iterator attr_iter(attrs.begin());
-                              attr_iter != attrs.end();
-                              ++attr_iter)
-                              {
-                                members.push_back(attr_iter->AttributeMember());
-                              }
-                        }
-                  }
-            }
+  
+  MY_FOREACH(InterfaceDefinitionsType, iface, rf.InterfaceDefinitions())
+    MY_FOREACH(FileType, file, iface.File())
+      MY_FOREACH(PackageType, package, file.Package())
+        MY_FOREACH(ComponentType, component, package.Component())
+          MY_FOREACH(AttributeType, attribute, component.Attribute())
+            members.push_back(attribute.AttributeMember());
+          }
+        }
       }
+    }
+  } 
+
   return members;
 #endif
 }

@@ -289,6 +289,15 @@ void pair_caller_single (catalog & c, visitor & v)
 }
 #endif // TEST10
 
+#ifdef TEST11
+
+void fulltd(catalog &c, visitor &v)
+{
+  evaluate(c, catalog() >> FullTD(catalog(), LeaveStrategy(v)));
+}
+
+#endif // TEST11
+
 timeval operator - (timeval t1, timeval t2)
 {
   if (t1.tv_usec < t2.tv_usec)
@@ -415,6 +424,10 @@ int main (int argc, char* argv[])
 #ifdef TEST10
     MyVisitor v;
     pair_caller_single(*c, v);
+#endif
+#ifdef TEST11
+    MyVisitor v;
+    fulltd(*c, v);
 #endif
 
     gettimeofday(&end, 0);

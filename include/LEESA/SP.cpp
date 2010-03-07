@@ -393,10 +393,14 @@ struct FailOp : public LEESAUnaryFunction<Kind>, OpBase, _StrategyBase
     template <class U>
     explicit FailOp (FailOp<U> const &) {}
 
-    result_type operator ()(argument_type k)
+    result_type operator ()(argument_type const & k)
     {
       throw LEESA::LEESAException<argument_type> ("FailOp: ");      
       return k;
+    }
+    void operator ()(argument_kind const & k)
+    {
+      throw LEESA::LEESAException<argument_type> ("FailOp: ");      
     }
 };
 
@@ -437,7 +441,7 @@ struct KindTraits <T, FilterChildrenIfNotDescendantCarry <H, Custom> >
 };
 
 CLASS_FOR_SP_OP_WITH_2STRATEGIES(Choice)
-    result_kind operator () (argument_kind const & arg)                        
+    void operator () (argument_kind const & arg)                        
     {
       try {
         s1_(arg);
@@ -445,23 +449,21 @@ CLASS_FOR_SP_OP_WITH_2STRATEGIES(Choice)
       catch(...) {
         s2_(arg);
       }
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_2STRATEGIES(Seq)
-result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       s1_(arg);
       s2_(arg);
-      return arg;
     }
 };
 
 // This traversal scheme is designed for hierarchical visitor, which
 // calls Visit_* on ingress and Leave_* on egress.
 CLASS_FOR_SP_OP_WITH_2CUSTOMIZABLE_STRATEGIES(AroundFullTD)
-result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef AllOp<K, AroundFullTDOp, Custom> All;
       typedef SeqOp<K, Strategy1, All> HalfStrategy;
@@ -469,7 +471,6 @@ result_kind operator () (argument_kind const & arg)
       HalfStrategy hs(s1_, All(*this));
       AroundFullTD around (hs, s2_);
       around(arg);
-      return arg;
     }
 };
 
@@ -525,7 +526,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
 
 #ifdef LEESA_FOR_UDM
 
-  result_kind operator () (argument_kind const & arg)
+  void operator () (argument_kind const & arg)
   {
     typedef typename KindTraits<argument_kind, Custom>::ChildrenKinds Children;
     ObjectSet objects = Custom::GetChildObjects(arg);
@@ -536,7 +537,6 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
     }
     if(!success_) 
       throw LEESAException<argument_type>();
-    return arg;
   }
 
   private:
@@ -573,14 +573,13 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
 
 #else
 
-  result_kind operator () (argument_kind const & arg)
+  void operator () (argument_kind const & arg)
   {
     typedef typename KindTraits<argument_kind, Custom>::ChildrenKinds Children;
     success_ = false;
     dispatch(arg, Children());
     if(!success_) 
       throw LEESAException<argument_type>();
-    return arg;
   }
 
   private:
@@ -595,7 +594,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
       HeadStrategy hs(strategy_);
       typename KindTraits<Head, Custom>::Container head_container =
         LEESA::evaluate(arg, argument_kind() >> Head());
-      BOOST_FOREACH(Head h, head_container)
+      BOOST_FOREACH(Head const &h, head_container)
       {
         try {
           hs(h);
@@ -622,7 +621,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
 #ifdef LEESA_FOR_UDM
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       /* Pipes-and-filter architecture of meta-programs is in action here.
        * If Custom is anything different from LEESA::Default, ChildrenKinds
@@ -640,7 +639,6 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       {
         dispatch(o, Children());
       }
-      return arg;
     }
 
   protected:
@@ -673,7 +671,7 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
 
 #else
 
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       /* Pipes-and-filter architecture of meta-programs is in action here.
        * If Custom is anything different from LEESA::Default, ChildrenKinds
@@ -687,7 +685,6 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
 
       typedef typename KindTraits<argument_kind, Custom>::ChildrenKinds Children;
       dispatch(arg, Children());
-      return arg;
     }
 
   protected:
@@ -757,7 +754,7 @@ struct AllGraphOp : public AllOp<K, Strategy, Custom>
     return arg;
   }
 
-  result_kind operator () (argument_kind const & kind)
+  void operator () (argument_kind const & kind)
   {
     LEESA::VISITED.insert(kind);
     typedef typename KindTraits<argument_kind, Custom>::ChildrenKinds Children;
@@ -770,26 +767,24 @@ struct AllGraphOp : public AllOp<K, Strategy, Custom>
         Super::dispatch(o, Children());
       }
     }
-    return kind;
   }
 };
 
 #endif // LEESA_FOR_UDM
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(FullTD);
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef AllOp<K, FullTDOp, Custom> All;
       SeqOp<K, Strategy, All> s(strategy_, All(*this));
       s(arg);
-      return arg;
     }
 };
 
 #ifdef LEESA_FOR_UDM
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(FullTDGraph);
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef AllGraphOp<K, FullTDGraphOp, Custom> AllGraph;
       SeqOp<K, Strategy, AllGraph> s(strategy_, AllGraph(*this));
@@ -799,99 +794,89 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(FullTDGraph);
         LEESA::VISITED.insert(arg);
         s(arg);
       }
-      return arg;
     }
 };
 
 #endif // LEESA_FOR_UDM
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(FullBU);
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef AllOp<K, FullBUOp, Custom> All;
       SeqOp<K, All, Strategy> s(All(*this), strategy_);
       s(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_1STRATEGY(Try)
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef Carrier<argument_kind> KIND_LIT;
       ChoiceOp<K, Strategy, KIND_LIT> c (strategy_, KIND_LIT());
       c(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_1STRATEGY(Repeat)
-result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef SeqOp<K, Strategy, RepeatOp> S;
       S s(strategy_, *this);
       TryOp<K, S> t(s);
       t(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_1STRATEGY(RepeatLoop)
-result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       try {
         while(true)
           strategy_(arg);
       }
       catch(...) {}
-      
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(OnceTD);
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef OneOp<K, OnceTDOp, Custom> ONE;
       ChoiceOp<K, Strategy, ONE> c(strategy_, ONE(*this));
       c(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(OnceBU);    
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef OneOp<K, OnceBUOp, Custom> ONE;
       ChoiceOp<K, ONE, Strategy> c(ONE(*this), strategy_);
       c(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(StopTD);
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef AllOp<K, StopTDOp, Custom> ALL;
       ChoiceOp<K, Strategy, ALL> c(strategy_, ALL(*this));
       c(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(NaiveInnermost);
-    result_kind operator () (argument_kind const & arg)
+    void operator () (argument_kind const & arg)
     {
       typedef OnceBUOp<K, Strategy, Custom> ONCE_BU;
       ONCE_BU once_bu(strategy_);
       RepeatLoopOp<K, ONCE_BU> r(once_bu);
       r(arg);
-      return arg;
     }
 };
 
 CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(Innermost);
-  result_kind operator () (argument_kind const & arg)
+  void operator () (argument_kind const & arg)
   {
     typedef AllOp<K, InnermostOp, Custom>   ALL_IM;
     typedef SeqOp<K, Strategy, InnermostOp> SEQ_IM;
@@ -902,7 +887,6 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(Innermost);
     TRY_IM t(seq);
     INNER_MOST innermost(all, t);
     innermost(arg);
-    return arg;
   }
 };
 
@@ -935,15 +919,33 @@ class VisitStrategy : public _StrategyBase
     explicit VisitStrategy (SchemaVisitor & v) 
       : visitor_(v) {} 
 
-    template <class U>
-    U operator ()(U const & k)
+    template <class Kind>
+    void operator ()(Kind const & k)
     {
-      typedef typename ET<U>::argument_kind Kind;
       BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
-      LEESA::evaluate(k, Kind() >> visitor_);
-      return k;
+#ifdef LEESA_FOR_UDM
+      Kind temp = k;
+      temp.Accept(visitor_);
+#else
+      const_cast<Kind &>(k).accept(visitor_);
+#endif // LEESA_FOR_UDM
     }
     
+    template <class Kind>
+    typename ET<Kind>::result_type
+#ifdef LEESA_FOR_UDM
+    operator ()(Carrier<Kind> const & carrier)
+#else
+    operator ()(typename ET<Kind>::result_type const & carrier)
+#endif
+    {
+      BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+      BOOST_FOREACH(Kind & kind, carrier)
+      {
+        (*this)(kind);
+      }
+    }
+
     SchemaVisitor & getVisitor() const
     {
       return visitor_;
@@ -965,18 +967,31 @@ class LeaveStrategy : public _StrategyBase
     explicit LeaveStrategy (SchemaVisitor & v) 
       : visitor_(v) {} 
 
-    template <class U>
-    U operator ()(U const & u)
+    template <class Kind>
+    void operator ()(Kind const & k)
     {
-      typedef typename ET<U>::argument_kind Kind;
       BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
-      Kind k = u;
 #ifdef LEESA_FOR_UDM
-      k.Leave(visitor_);
+      Kind temp = k;
+      temp.Leave(visitor_);
 #else
-      k.leave(visitor_);
+      const_cast<Kind &>(k).leave(visitor_);
 #endif // LEESA_FOR_UDM
-      return k;
+    }
+    
+    template <class Kind>
+    typename ET<Kind>::result_type
+#ifdef LEESA_FOR_UDM
+    operator ()(Carrier<Kind> const & carrier)
+#else
+    operator ()(typename ET<Kind>::result_type const & carrier)
+#endif
+    {
+      BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+      BOOST_FOREACH(Kind & kind, carrier)
+      {
+        (*this)(kind);
+      }
     }
     
     SchemaVisitor & getVisitor() const

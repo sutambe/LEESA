@@ -1,3 +1,14 @@
+Sun Mar  7 20:51:03 UTC 2010  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/SP.cpp:
+          Bug fix. FullTd was not working on xsd.
+
+        * tests/PICML-xsd/driver.cxx:
+          Updated the test.
+
+        * tests/library-xsd/driver.cxx:
+          Updated the test.
+
 Mon Mar  1 20:32:22 UTC 2010  Sumant Tambe  <sutambe@nospam>
 
         * bin/gen-pairs.pl:
