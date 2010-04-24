@@ -1,3 +1,11 @@
+Sat Apr 24 05:49:52 UTC 2010  Sumant Tambe  <sutambe@nospam>
+
+        * tests/SM-Win/SM.h:
+        * tests/SM-Win/SM_LEESA.vcproj:
+        * tests/SM-Win/UdmApp.cpp:
+		
+          Updated the project for new paths.
+
 Sun Mar  7 20:51:03 UTC 2010  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/SP.cpp:

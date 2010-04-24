@@ -32,7 +32,7 @@
 
 #include "SM_export.h"
 
-#include "LEESA_VisitorAsIndex.h"
+#include "LEESA/VisitorAsIndex.h"
 
 namespace SM {
 

@@ -9,7 +9,7 @@
 
 #define DOMAIN_HAS_MUTUAL_RECURSION
 #define DOMAIN_NAMESPACE SM
-#include "LEESA.h"
+#include "LEESA/LEESA.h"
 
 /*********************************************************************************/
 /* Initialization function. The framework calls it before preparing the backend. */
@@ -195,9 +195,6 @@ void CUdmApp::UdmMain(
     std::vector<StateMachine> smv =
     evaluate(rf, RootFolder() >> StateMachine()[visitor]);
     
-    typedef tuple<State, StartState> TestTuple;
-    std::vector<TestTuple > vt = 
-      evaluate(smv, StateMachine() >> MembersAsTupleOf(StateMachine(), TestTuple()));
     
     evaluate(rf, RootFolder() >> LevelDescendantsOf(RootFolder(), _, _, StateMachine()));
     evaluate(smv, StateMachine() >> DescendantsOf(StateMachine(), State()));
@@ -207,6 +204,10 @@ void CUdmApp::UdmMain(
                                     StateMachine() >>= State()
                                     >> VisitLeave(State(), visitor))));
 
+    /*typedef tuple<State, StartState> TestTuple;
+    std::vector<TestTuple > vt = 
+      evaluate(smv, StateMachine() >> MembersAsTupleOf(StateMachine(), TestTuple()));
+    
     BOOST_FOREACH(TestTuple t, vt)
     {
       std::string ostr = std::string() 
@@ -217,6 +218,7 @@ void CUdmApp::UdmMain(
 
       AfxMessageBox(ostr.c_str());
     }
+*/
 /*  
 		std::vector<StartState> SSvector = 
 		evaluate(rf, RootFolder()
