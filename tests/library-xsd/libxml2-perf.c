@@ -3,6 +3,7 @@
  * synopsis: 	Evaluate XPath expression and prints result node set.
  * purpose: 	Shows how to evaluate XPath expression and register 
  *          	known namespaces in XPath context.
+ * compile:     gcc libxml2-perf.c -o libxml2-perf -Wall -I /usr/include/libxml2 -lxml2
  * usage:	./libxml2-perf <xml-file> <xpath-expr> [<known-ns-list>]
  * test:        ./libxml2-perf library.xml '//name' lib=http://www.codesynthesis.com/library
  * author: 	Aleksey Sanin

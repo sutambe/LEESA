@@ -69,6 +69,7 @@ get_member_child_axis(RootFolderType & rf)
 #endif
 }
 
+
 ::SeqType<ServiceProviderType>::type
 get_service_provider_child_axis(RootFolderType & rf)
 {
@@ -99,6 +100,7 @@ get_service_provider_child_axis(RootFolderType & rf)
   return service_providers;
 #endif
 }
+
 
 
 ::SeqType<ImplementationArtifactReferenceType>::type
@@ -134,7 +136,10 @@ get_impl_artifact_ref_child_axis(RootFolderType & rf)
 #endif
 }
 
+
 /*
+// DataTypeType is present all over the place.
+// It takes quite some time to compile using the descendant axis.
 ::SeqType<DataTypeType>::type
 get_datatype_child_axis(RootFolderType & rf)
 {
@@ -169,7 +174,7 @@ get_datatype_child_axis(RootFolderType & rf)
 }
 */
 
-
+/*
 ::SeqType<AttributeType>::type
 get_member_descendants(RootFolderType & rf)
 {
@@ -185,7 +190,7 @@ get_member_descendants(RootFolderType & rf)
 // one line for return. So we get 6*19 + 10*2 + 2 = 136 lines. 
 #endif
 }
-
+*/
 
 
 ::SeqType<AttributeMemberType>::type

@@ -37,7 +37,7 @@ struct SeqType
 //#define TEST1
 //#endif 
 
-#ifdef TEST1
+#ifdef TEST12
 // Get a sequence of books.
 SeqType<book>::type
 get_books(catalog & c)
@@ -354,6 +354,45 @@ class MyVisitor : public visitor
 };
 #endif // WITH_LEESA
 
+#ifdef TEST12
+namespace LEESA {
+
+template <class Vector, unsigned SIZE = boost::mpl::size<Vector>::Value>
+struct ComposedIterator : ComposedIterator<typename boost::mpl::pop_front<Vector>::type>
+{
+  typedef typename boost::mpl::front<Vector>::type Head;
+  typedef typename ContainerTraits<Head>::Container HeadContainer;
+  typedef typename HeadContainer::iterator HeadIterator;
+  HeadIterator head_iter_;
+
+
+};
+
+template <class Vector>
+struct ComposedIterator<Vector, 0>
+{
+
+};
+
+
+template <class Expr>
+struct ComposedIterator2
+{
+  typedef Expr type;
+};
+
+template <class Context, class Expr>
+typename ComposedIterator2<Expr>::type
+evaluate_lazy(Context & c, Expr e)
+{
+  int i = e;
+  return e;
+}
+
+};
+
+#endif // TEST12
+
 int main (int argc, char* argv[])
 {
   if (argc != 2)
@@ -428,6 +467,9 @@ int main (int argc, char* argv[])
 #ifdef TEST11
     MyVisitor v;
     fulltd(*c, v);
+#endif
+#ifdef TEST12
+    LEESA::evaluate_lazy(*c, catalog() >>= book() >>= author());
 #endif
 
     gettimeofday(&end, 0);

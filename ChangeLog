@@ -1,9 +1,25 @@
+Sat Dec 11 04:31:14 UTC 2010  Sumant Tambe  <sutambe@nospam>
+
+        * bin/gen-meta.py:
+
+        * include/LEESA/Kind_Traits.h:
+
+        * tests/G2SMessage-xsd/g2sMessage-meta.cxx:
+        * tests/G2SMessage-xsd/g2sMessage-meta.hxx:
+
+        * tests/PICML-xsd/driver.cxx:
+
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/libxml2-perf.c:
+        * tests/library-xsd/lxml-perf.py:
+        * tests/library-xsd/perf-compare.sh:
+
 Sat Apr 24 05:49:52 UTC 2010  Sumant Tambe  <sutambe@nospam>
 
         * tests/SM-Win/SM.h:
         * tests/SM-Win/SM_LEESA.vcproj:
         * tests/SM-Win/UdmApp.cpp:
-		
+
           Updated the project for new paths.
 
 Sun Mar  7 20:51:03 UTC 2010  Sumant Tambe  <sutambe@nospam>

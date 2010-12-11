@@ -396,6 +396,9 @@ struct ContainerTraits
     if(t in children_dict):
       children_kinds = ", ".join(children_dict[t])
       metakind = "LEESA::ModelMetaTag"
+      #if(t in children_dict[t]): // direct recursive types
+      #  sys.stdout.write("[[[" + t + "]]]\n");
+
 
     if(t in parent_dict):
       parent_kinds = ", ".join(parent_dict[t])

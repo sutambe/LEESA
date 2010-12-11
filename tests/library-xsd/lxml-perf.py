@@ -54,7 +54,8 @@ def bench_lxml_findall(tree):  # Superfast
 # While this is the fastest way among all that are presented here, it is 
 # about 2 to 2.2 times slower compared to LEESA!
   result = []
-  for name in tree.findall("//name"):
+#  for name in tree.findall("//name"):
+  for name in tree.findall("book/author/name"):
     result.append(name.text)
   print ("Size of list = " + str(len(result)))
 
