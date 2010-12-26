@@ -1,7 +1,7 @@
 #ifndef __LEESA_CONCEPTS_H
 #define __LEESA_CONCEPTS_H
 
-#include "Kind_Traits.h"
+#include "LEESA/Kind_Traits.h"
 
 #include <boost/mpl/count_if.hpp>
 #include <boost/mpl/or.hpp>

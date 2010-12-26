@@ -1,7 +1,12 @@
 #ifndef __SEQUENCE_HPP
 #define __SEQUENCE_HPP
 
-#include <boost/mpl/vector.hpp>
+#ifdef __GXX_EXPERIMENTAL_CXX0X__ 
+
+#else 
+
+#include "boost/mpl/vector.hpp"
+
 #include <boost/mpl/front.hpp>
 #include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/push_back.hpp>
@@ -23,6 +28,8 @@ using boost::mpl::copy_if;
 using boost::mpl::contains;
 
 }
+
+#endif // __GXX_EXPERIMENTAL_CXX0X__ 
 
 #endif // __SEQUENCE_HPP
 

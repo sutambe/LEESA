@@ -1,9 +1,9 @@
 #ifndef __LEESA_CPP
 #define __LEESA_CPP
 
-#include "Kind_Traits.h"
-#include "Concepts.h"
-#include "VisitorAsIndex.h"
+#include "LEESA/Kind_Traits.h"
+#include "LEESA/Concepts.h"
+#include "LEESA/VisitorAsIndex.h"
 
 #include <boost/typeof/typeof.hpp>
 #include <boost/type_traits.hpp>
@@ -75,12 +75,12 @@ template <class ASSOC, class SOURCECLASS, class TARGETCLASS> struct AssociationM
 // Expression Traits must be defined before everything else.
 // Do not remove from this place.
 
-#include "Expression_Traits.h"
+#include "LEESA/Expression_Traits.h"
 
 #ifdef LEESA_FOR_UDM
-#include "Carrier_Simple.h"
+#include "LEESA/Carrier_Simple.h"
 #else
-#include "Carrier_Optimized.h"
+#include "LEESA/Carrier_Optimized.h"
 #endif // LEESA_FOR_UDM
 
 
@@ -234,12 +234,12 @@ evaluate (Para & p, Expr e)
 } // namespace LEESA
 
 // The order of #include is very important
-#include "Operators.cpp"
-#include "RightShift.cpp"
-#include "LeftShift.cpp"
-#include "SP.cpp"
-#include "SP_Accumulation.cpp"
-#include "AP.cpp"
+#include "LEESA/Operators.cpp"
+#include "LEESA/RightShift.cpp"
+#include "LEESA/LeftShift.cpp"
+#include "LEESA/SP.cpp"
+#include "LEESA/SP_Accumulation.cpp"
+#include "LEESA/AP.cpp"
 
 #endif // __LEESA_CPP
 

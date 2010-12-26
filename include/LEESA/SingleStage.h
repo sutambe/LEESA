@@ -5,17 +5,17 @@
 #error "Please #define DOMAIN_NAMESPACE"
 #endif
 
-#include "Kind_Traits.h"
-#include "Concepts.h"
+#include "LEESA/Kind_Traits.h"
+#include "LEESA/Concepts.h"
 
 #include <boost/foreach.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits.hpp>
 
 #ifdef OPTIMIZED_CARRIER
-#include "Carrier_Optimized.h"
+#include "LEESA/Carrier_Optimized.h"
 #else
-#include "Carrier_Simple.h"
+#include "LEESA/Carrier_Simple.h"
 #endif // OPTIMIZED_CARRIER
 
 namespace LEESA {

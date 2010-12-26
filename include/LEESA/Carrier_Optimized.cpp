@@ -1,7 +1,7 @@
 #ifndef __CARRIER_OPTIMIZED_CPP_
 #define __CARRIER_OPTIMIZED_CPP_
 
-#include "Carrier_Optimized.h"
+#include "LEESA/Carrier_Optimized.h"
 #include <stdexcept>
 
 namespace LEESA {
