@@ -172,10 +172,10 @@ def synthesize_function_declaration(return_type, qualified_cname, child_type, co
     outstr = """
 /************ %(child_type)s conflicts with %(str_types)s
 %(return_type)s
-children_kind(%(qualified_cname)s & x, %(child_type)s const *);
+children_kind(%(qualified_cname)s &, %(child_type)s const *);
 
 const %(return_type)s
-children_kind(const %(qualified_cname)s & x, %(child_type)s const *);
+children_kind(const %(qualified_cname)s &, %(child_type)s const *);
 ************/
 """ % locals()
     synthesized_function_declarations += outstr
@@ -183,10 +183,10 @@ children_kind(const %(qualified_cname)s & x, %(child_type)s const *);
   else:
     outstr = """
 %(return_type)s
-children_kind(%(qualified_cname)s & x, %(child_type)s const *);
+children_kind(%(qualified_cname)s &, %(child_type)s const *);
 
 const %(return_type)s
-children_kind(const %(qualified_cname)s & x, %(child_type)s const *);
+children_kind(const %(qualified_cname)s &, %(child_type)s const *);
 """ % locals()
     synthesized_function_declarations += outstr
 
@@ -477,8 +477,8 @@ def write_accept_declarations(namespace, orig_header_file, enhanced_header_file,
       line = """
   public:
 
-    virtual void accept (visitor & v);
-    virtual void leave (visitor & v);
+    virtual void accept (visitor &);
+    virtual void leave (visitor &);
     using LEESA::VisitorAsIndex_CRTP< %(cname)s,  visitor >::operator [];
   };
 """ % locals()
@@ -543,8 +543,8 @@ class visitor {
   for qualified_cname in all_types_set:
     cname = qualified_cname.split("::")[-1]
     outstr = """
-    virtual void visit_%(cname)s(%(cname)s & x) {}
-    virtual void leave_%(cname)s(%(cname)s & x) {}
+    virtual void visit_%(cname)s(%(cname)s &) {}
+    virtual void leave_%(cname)s(%(cname)s &) {}
 """ % locals()
 
     meta_header_file.write(outstr)

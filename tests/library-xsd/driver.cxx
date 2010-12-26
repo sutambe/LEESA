@@ -32,7 +32,7 @@ struct SeqType
 
 #include <vector>
 
-//#if(!defined TEST1 && !defined TEST2 && !defined TEST3 && !defined TEST4 && !defined TEST5 && \
+//#if(!defined TEST1 && !defined TEST2 && !defined TEST3 && !defined TEST4 && !defined TEST5 && 
 //    !defined TEST6 && !defined TEST7 && !defined TEST8 && !defined TEST9 && !defined TEST10)
 //#define TEST1
 //#endif 
@@ -326,7 +326,7 @@ class MyVisitor : public visitor
 {
   public:
 
-    virtual void visit_catalog(catalog & x) {
+    virtual void visit_catalog(catalog &) {
       std::cout << "Catalog:" << std::endl;  
     }
     virtual void visit_author(author & x) {
@@ -339,7 +339,7 @@ class MyVisitor : public visitor
       std::cout << "Born: " << x << std::endl;  
     }
     
-    virtual void leave_catalog(catalog & x) {
+    virtual void leave_catalog(catalog &) {
       std::cout << "Leave Catalog:" << std::endl;  
     }
     virtual void leave_author(author & x) {

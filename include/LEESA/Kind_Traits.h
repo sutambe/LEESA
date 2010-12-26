@@ -5,12 +5,8 @@
 #error "Please #define DOMAIN_NAMESPACE"
 #endif
 
-#include "boost/mpl/vector.hpp"
-#include <boost/mpl/front.hpp>
-#include <boost/mpl/pop_front.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/size.hpp>
+#include "LEESA/Sequence.hpp"
+
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/placeholders.hpp>

@@ -18,7 +18,7 @@ Carrier<Kind>::Carrier ()
  * in either via constructor or push_back will be stored.
  * */
 template <class Kind>
-Carrier<Kind>::Carrier(const Kind & u)
+Carrier<Kind>::Carrier(const Kind &)
   : first_(0), last_(0), size_(0)
 { }
 

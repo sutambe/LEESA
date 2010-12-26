@@ -1,20 +1,12 @@
 #ifndef __SP_CPP
 #define __SP_CPP
 
-#include <boost/mpl/front.hpp>
-#include <boost/mpl/pop_front.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <boost/mpl/empty.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/remove_if.hpp>
+#include "LEESA/Sequence.hpp"
+
 #include <boost/mpl/placeholders.hpp>
-#include <boost/mpl/remove.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/copy_if.hpp>
 #include <boost/mpl/not.hpp>
-#include <boost/mpl/contains.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/mpl/vector.hpp>
 #include <boost/mpl/equal.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/logical.hpp>
@@ -242,17 +234,9 @@ struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase               \
 
 namespace LEESA {
 
-using boost::mpl::front;
-using boost::mpl::size;
-using boost::mpl::pop_front;
 using boost::mpl::if_;
-using boost::mpl::copy_if;
 using boost::mpl::or_;
 using boost::mpl::not_;
-using boost::mpl::remove_if;
-using boost::mpl::contains;
-using boost::mpl::push_back;
-using boost::mpl::empty;
 
 using boost::is_same;
 using boost::disable_if;

@@ -1,3 +1,27 @@
+Sun Dec 26 07:32:51 UTC 2010  Sumant Tambe  <sutambe@nospam>
+
+        * bin/gen-meta.py:
+
+        * include/LEESA/AP.cpp:
+        * include/LEESA/Carrier_Optimized.cpp:
+        * include/LEESA/Kind_Traits.h:
+        * include/LEESA/Operators.cpp:
+        * include/LEESA/SP.cpp:
+        * include/LEESA/Sequence.hpp:
+
+        * tests/PICML-xsd/Makefile:
+        * tests/PICML-xsd/README:
+
+        * tests/library-xsd/Makefile:
+        * tests/library-xsd/README:
+        * tests/library-xsd/driver.cxx:
+
+        * tests/polymorphism-xsd/Makefile:
+        * tests/polymorphism-xsd/README:
+
+        * tests/rss2-xsd/Makefile:
+        * tests/rss2-xsd/README:
+
 Sat Dec 11 04:31:14 UTC 2010  Sumant Tambe  <sutambe@nospam>
 
         * bin/gen-meta.py:

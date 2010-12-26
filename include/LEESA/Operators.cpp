@@ -159,7 +159,7 @@ struct GetChildrenOp :
     // is present, which must be executed one object at a time.
     std::for_each(r.begin(), r.end(), expr);
   }
-  void dispatch_depth_first(result_type & c, typename ET<H>::argument_type &)
+  void dispatch_depth_first(result_type &, typename ET<H>::argument_type &)
   { 
     // If expr_ is a Carrier, it is basically a no-op.
   }

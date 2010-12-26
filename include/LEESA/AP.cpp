@@ -1,17 +1,10 @@
 #ifndef __AP_CPP
 #define __AP_CPP
 
+#include "LEESA/Sequence.hpp"
+
 #include <boost/mpl/if.hpp>
-#include <boost/mpl/contains.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/vector.hpp>
-#include <boost/mpl/push_back.hpp>
-#include <boost/mpl/front.hpp>
-#include <boost/mpl/pop_front.hpp>
-#include <boost/mpl/empty.hpp>
 #include <boost/mpl/equal.hpp>
-#include <boost/mpl/copy_if.hpp>
-#include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/type_traits.hpp>
@@ -28,16 +21,7 @@
 namespace LEESA {
 
 using boost::mpl::if_c;
-using boost::mpl::contains;
-using boost::mpl::size;
-using boost::mpl::push_back;
-using boost::mpl::front;
-using boost::mpl::pop_front;
-using boost::mpl::vector;
-using boost::mpl::empty;
 using boost::mpl::equal;
-using boost::mpl::remove_if;
-using boost::mpl::copy_if;
 using boost::is_same;
 using boost::is_base_of;
 using boost::disable_if_c;

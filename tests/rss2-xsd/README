@@ -1,13 +1,22 @@
-1. Obtain xsd from http://www.codesynthesis.com/products/xsd/download.xhtml
-   or on Fedora 12 (or later) enter command: yum install xsdcxx
+1. Obtain xsdcxx  
+   Fedora: sudo yum install xsdcxx
+   Ubuntu: sudo apt-get install xsdcxx
 
-2. Set $XSD_ROOT 
+2. Install python-dev, libxslt1-dev, libxml2-dev, doxygen, xsltproc, and libxerces-c-dev.
+   Fedora: sudo yum install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev
+   Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev
 
-3. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+3. Install lxml Python bindings.
+   sudo easy_install lxml
 
-4. Set $LEESA_ROOT
+4. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+   svn co svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA LEESA
 
-5. make generate
+5. Set $LEESA_ROOT
 
-6. make driver
+6. make generate
 
+7. make driver
+
+If xsdcxx can't be installed, obtain xsdcxx from
+http://www.codesynthesis.com/products/xsd/download.xhtml and set $XSD_ROOT to the root directory of the installation.
