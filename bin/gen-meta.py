@@ -297,13 +297,10 @@ def write_header_prolog(no_visitor, max_length, namespace, orig_header_without_e
 """ % locals()
   meta_header_file.write(outstr)
   
-  if(max_length > 20):
-    vector_size = (max_length/10 + 1)*10 
-    outstr = """
-#define BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
-#define BOOST_MPL_LIMIT_VECTOR_SIZE %(vector_size)s
+  outstr = """
+#define LEESA_MAX_MPL_VECTOR_SIZE %(max_length)s
 """ % locals()
-    meta_header_file.write(outstr)
+  meta_header_file.write(outstr)
 
   if(no_visitor):
     outstr = """
@@ -392,9 +389,12 @@ struct ContainerTraits
     children_kinds = ""
     parent_kinds = ""
     metakind = "LEESA::AtomMetaTag"
+    children_vect_len = 0
+    parent_vect_len = 0
 
     if(t in children_dict):
       children_kinds = ", ".join(children_dict[t])
+      children_vect_len = len(children_dict[t])
       metakind = "LEESA::ModelMetaTag"
       #if(t in children_dict[t]): // direct recursive types
       #  sys.stdout.write("[[[" + t + "]]]\n");
@@ -402,12 +402,13 @@ struct ContainerTraits
 
     if(t in parent_dict):
       parent_kinds = ", ".join(parent_dict[t])
+      parent_vect_len = len(parent_dict[t])
 
     outstr = """
 template <>
 struct SchemaTraits< %(t)s > : public ContainerTraits< %(t)s > {
-  typedef boost::mpl::vector < %(children_kinds)s > ChildrenKinds;
-  typedef boost::mpl::vector < %(parent_kinds)s > ParentKinds;
+  typedef LEESA_MPL_VECTOR_N(%(children_vect_len)s, %(children_kinds)s) ChildrenKinds;
+  typedef LEESA_MPL_VECTOR_N(%(parent_vect_len)s, %(parent_kinds)s) ParentKinds;
   typedef %(metakind)s MetaKind;
 };
 """ % locals()

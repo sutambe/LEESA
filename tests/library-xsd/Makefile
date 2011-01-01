@@ -1,4 +1,5 @@
 CXX=g++
+#CXX=g++ -std=c++0x -Wno-deprecated -I /project/mySVN/variadic_mpl
 
 ifndef $(XSD_ROOT)
   XSD_INCLUDE=
@@ -9,13 +10,13 @@ else
 endif
 
 driver: driver.cxx library.o library-meta.o
-	$(CXX) driver.cxx library.o library-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA -D TEST4
+	$(CXX) $(CXXFLAGS) driver.cxx library.o library-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA -D TEST4
         
 library.o: library.cxx library.hxx
-	$(CXX) -c library.cxx -o library.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c library.cxx -o library.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 library-meta.o: library-meta.cxx library-meta.hxx
-	$(CXX) -c library-meta.cxx -o library-meta.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c library-meta.cxx -o library-meta.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 library.cxx: library.xsd
 	$(XSD_BIN) cxx-tree --generate-ostream --generate-serialization --generate-default-ctor library.xsd

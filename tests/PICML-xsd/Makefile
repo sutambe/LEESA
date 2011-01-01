@@ -1,4 +1,5 @@
 CXX=g++
+#CXX=g++45 -std=c++0x -Wno-deprecated -I /project/mySVN/variadic_mpl
 
 ifndef $(XSD_ROOT)
   XSD_INCLUDE=
@@ -9,13 +10,13 @@ else
 endif
 
 driver: driver.cxx PICML.o PICML-meta.o
-	$(CXX) driver.cxx PICML.o PICML-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA -D TEST4
+	$(CXX) $(CXXFLAGS) driver.cxx PICML.o PICML-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA -D TEST4
         
 PICML.o: PICML.cxx PICML.hxx
-	$(CXX) -c PICML.cxx -o PICML.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c PICML.cxx -o PICML.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 PICML-meta.o: PICML-meta.cxx PICML-meta.hxx
-	$(CXX) -c PICML-meta.cxx -o PICML-meta.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c PICML-meta.cxx -o PICML-meta.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 PICML.cxx: PICML.xsd
 	$(XSD_BIN) cxx-tree --generate-ostream --generate-serialization --generate-default-ctor PICML.xsd

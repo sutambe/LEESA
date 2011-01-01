@@ -3,11 +3,7 @@
 
 #include "LEESA/Kind_Traits.h"
 
-#include <boost/mpl/count_if.hpp>
 #include <boost/mpl/or.hpp>
-#include <boost/mpl/size.hpp>
-#include <boost/mpl/front.hpp>
-#include <boost/mpl/pop_front.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/type_traits.hpp>
 #include <boost/concept_check.hpp>

@@ -9,10 +9,10 @@ else
 endif
 
 driver: driver.cxx impedance.o
-	$(CXX) driver.cxx impedance.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c
+	$(CXX) $(CXXFLAGS) driver.cxx impedance.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c
         
 impedance.o: impedance.cxx impedance.hxx
-	$(CXX) -c impedance.cxx -o impedance.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c impedance.cxx -o impedance.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 impedance.cxx: impedance.xsd
 	$(XSD_BIN) cxx-tree --generate-ostream --generate-serialization --generate-default-ctor impedance.xsd

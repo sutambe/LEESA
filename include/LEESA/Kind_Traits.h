@@ -8,7 +8,6 @@
 #include "LEESA/Sequence.hpp"
 
 #include <boost/mpl/or.hpp>
-#include <boost/mpl/remove_if.hpp>
 #include <boost/mpl/placeholders.hpp>
 
 #include <boost/type_traits.hpp>

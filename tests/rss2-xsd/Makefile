@@ -9,13 +9,13 @@ else
 endif
 
 driver: driver.cxx rss2.o rss2-meta.o
-	$(CXX) driver.cxx rss2.o rss2-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c
+	$(CXX) $(CXXFLAGS) driver.cxx rss2.o rss2-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c
         
 rss2.o: rss2.cxx rss2.hxx
-	$(CXX) -c rss2.cxx -o rss2.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c rss2.cxx -o rss2.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 rss2-meta.o: rss2-meta.cxx rss2-meta.hxx
-	$(CXX) -c rss2-meta.cxx -o rss2-meta.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
+	$(CXX) $(CXXFLAGS) -c rss2-meta.cxx -o rss2-meta.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall
 
 rss2.cxx: rss2.xsd
 	$(XSD_BIN) cxx-tree --generate-ostream --generate-serialization --generate-default-ctor rss2.xsd

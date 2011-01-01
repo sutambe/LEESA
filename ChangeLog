@@ -1,3 +1,21 @@
+Sat Jan  1 20:31:44 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * bin/gen-meta.py:
+          Added support for mpl vectors larger than 50.
+
+        * include/LEESA/Concepts.h:
+        * include/LEESA/Kind_Traits.h:
+        * include/LEESA/Sequence.hpp:
+          Added support for mpl vectors larger than 50 and variadic vector for
+          C++0x.
+
+        * tests/PICML-xsd/Makefile:
+        * tests/library-xsd/Makefile:
+        * tests/polymorphism-xsd/Makefile:
+        * tests/rss2-xsd/Makefile:
+        * tests/xo-impedance/Makefile:
+          Added CXXFLAGS.
+
 Sun Dec 26 08:09:16 UTC 2010  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/Carrier_Optimized.h:
