@@ -1,5 +1,6 @@
 CXX=g++
-#CXX=g++45 -std=c++0x -Wno-deprecated -I /project/mySVN/variadic_mpl
+#CXX=g++45 
+#CXXFLAGS='-std=c++0x -Wno-deprecated' 
 
 ifndef $(XSD_ROOT)
   XSD_INCLUDE=
@@ -10,7 +11,7 @@ else
 endif
 
 driver: driver.cxx PICML.o PICML-meta.o
-	$(CXX) $(CXXFLAGS) driver.cxx PICML.o PICML-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA -D TEST4
+	$(CXX) $(CXXFLAGS) driver.cxx PICML.o PICML-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA_DESC
         
 PICML.o: PICML.cxx PICML.hxx
 	$(CXX) $(CXXFLAGS) -c PICML.cxx -o PICML.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall

@@ -313,7 +313,11 @@ private:
       through_to(h, ToVector());
     }
   }
+
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
   template <class F> void from_through(F, EmptyMPLVector0) { }
+#endif
+
   template <class F> void from_through(F, EmptyMPLVector) { }
   
   template <class F> 
@@ -337,7 +341,11 @@ private:
 
     through_to(through, Tail());
   }
+
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
   template <class F> void through_to(F, EmptyMPLVector0) { }
+#endif
+
   template <class F> void through_to(F, EmptyMPLVector) { }
 
   Strategy strategy_;
@@ -364,7 +372,7 @@ struct find_param <Vector, 0, Through_tag>
 template <class Vector>
 struct find_param <Vector, 0, Bypass_tag>
 {
-  typedef EmptyMPLVector0 type;
+  typedef EmptyMPLVector type;
 };
 
 template <class Vector>
@@ -386,7 +394,7 @@ template <class Strategy,
           class From, 
           class ToVector, 
           class Through = Through_Vector_is<boost::mpl::vector1<__ANY> >,
-          class Bypass = Bypass_Vector_is<EmptyMPLVector0>,
+          class Bypass = Bypass_Vector_is<EmptyMPLVector>,
           class Custom = Custom_is<LEESA::Default> >
 struct APGen
 {

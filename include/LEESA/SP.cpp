@@ -278,7 +278,9 @@ struct LEESAException : public std::runtime_error
 };
 
 typedef boost::mpl::vector<>  EmptyMPLVector;
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
 typedef boost::mpl::vector0<> EmptyMPLVector0;
+#endif
 
 #ifdef LEESA_FOR_UDM
 ObjectSet VISITED;
@@ -393,6 +395,31 @@ template <class H, class Custom>
 struct FilterChildrenIfNotDescendantCarry : Custom
 {};
 
+
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+
+template <class ResultKind, class Custom>
+struct FilterChildrenIfNotDescendantPredicate
+{
+  template <class What>
+  struct inner
+  {
+    typedef inner type;
+    enum { value = std::is_same<What, ResultKind>::value ||
+                   IsDescendantKind<What, ResultKind, Custom>::value };
+  };
+};
+
+template <class Vector, class ResultKind, class Custom>
+/* By default Custom is LEESA::Default. Check in DescendantOp. */
+struct FilterChildrenIfNotDescendantImpl
+{
+  typedef typename 
+    copy_if<Vector, 
+            FilterChildrenIfNotDescendantPredicate<ResultKind, Custom>::template inner>::type type;
+};
+
+#else
 template <class Vector, class ResultKind, class Custom>
 /* By default Custom is LEESA::Default. Check in DescendantOp. */
 struct FilterChildrenIfNotDescendantImpl
@@ -404,6 +431,7 @@ struct FilterChildrenIfNotDescendantImpl
                                  ResultKind, 
                                  Custom> > >::type type;
 };
+#endif // __GXX_EXPERIMENTAL_CXX0X__
 
 template <class T, class H, class Custom>
 /* By default Custom is LEESA::Default. Check in DescendantOp. */
@@ -546,8 +574,10 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
       else
         dispatch(o, Tail());
     }
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(Udm::Object, EmptyMPLVector0) { }
+#endif
     
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
@@ -591,8 +621,10 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
       if(!success_)
         dispatch(arg, Tail());
     }
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(argument_kind const &,  EmptyMPLVector0) { }
+#endif
     
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
@@ -643,8 +675,10 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       else
         dispatch(o, Tail());
     }
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(Udm::Object, EmptyMPLVector0) { }
+#endif
 
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
@@ -691,8 +725,10 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       }
       dispatch(arg, Tail());
     }
+#ifndef __GXX_EXPERIMENTAL_CXX0X__
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(argument_kind const &, EmptyMPLVector0) { }
+#endif
 
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 

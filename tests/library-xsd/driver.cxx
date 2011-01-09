@@ -37,7 +37,7 @@ struct SeqType
 //#define TEST1
 //#endif 
 
-#ifdef TEST12
+#ifdef TEST1
 // Get a sequence of books.
 SeqType<book>::type
 get_books(catalog & c)
@@ -364,15 +364,11 @@ struct ComposedIterator : ComposedIterator<typename boost::mpl::pop_front<Vector
   typedef typename ContainerTraits<Head>::Container HeadContainer;
   typedef typename HeadContainer::iterator HeadIterator;
   HeadIterator head_iter_;
-
-
 };
 
 template <class Vector>
 struct ComposedIterator<Vector, 0>
-{
-
-};
+{ };
 
 
 template <class Expr>
@@ -383,10 +379,10 @@ struct ComposedIterator2
 
 template <class Context, class Expr>
 typename ComposedIterator2<Expr>::type
-evaluate_lazy(Context & c, Expr e)
+evaluate_lazy(Context &, Expr e)
 {
   int i = e;
-  return e;
+  return i;
 }
 
 };

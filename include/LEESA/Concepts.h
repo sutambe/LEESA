@@ -57,6 +57,17 @@ namespace LEESA
                    boost::is_convertible<L, H>::value }; 
   };
 
+#ifdef __GXX_EXPERIMENTAL_CXX0X__
+  template <class ChildKind>
+  struct IsBaseOf
+  {
+    template <class What>
+    struct inner
+    {
+      enum { value = boost::is_base_of<What, ChildKind>::value };
+    };
+  };
+
   template <class ParentKind, class ChildKind, class Custom = Default>
   struct ParentChildConcept 
   {
@@ -70,12 +81,32 @@ namespace LEESA
     enum { value = DomainKindConcept<ParentKind, Custom>::value &&
                    DomainKindConcept<ChildKind, Custom>::value && 
                    (boost::mpl::contains<Children, ChildKind>::value ||
-                    // If the ChildrenKindss contains a base of ChildKind
+                    // If the ChildrenKinds contains a base of ChildKind
+                    boost::mpl::count_if <Children, 
+                                          IsBaseOf<ChildKind>::template inner 
+                                         >::value)    }; 
+  };
+#else
+  template <class ParentKind, class ChildKind, class Custom = Default>
+  struct ParentChildConcept 
+  {
+    void constraints()
+    {
+      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+    }
+
+    typedef typename KindTraits<ParentKind, Custom>::ChildrenKinds Children;
+    typedef ParentChildConcept type;
+    enum { value = DomainKindConcept<ParentKind, Custom>::value &&
+                   DomainKindConcept<ChildKind, Custom>::value && 
+                   (boost::mpl::contains<Children, ChildKind>::value ||
+                    // If the ChildrenKinds contains a base of ChildKind
                     boost::mpl::count_if <Children, 
                                           boost::is_base_of <boost::mpl::placeholders::_1, 
                                                              ChildKind> 
                                          >::value)    }; 
   };
+#endif // __GXX_EXPERIMENTAL_CXX0X__
 
   template <class ChildKind, class ParentKind, class Custom = Default>
   struct ChildToParentConcept 

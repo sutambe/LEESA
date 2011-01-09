@@ -165,6 +165,11 @@ public:
   Carrier(const Kind &);       // Neglects data
   Carrier(Kind &);             // Maintains data
   Carrier(typename ContainerTraits<Kind>::Container &); // Maintains data
+#ifndef LEESA_FOR_UDM
+  Carrier (const typename DOMAIN_NAMESPACE::SchemaTraits<Kind>::Optional &);
+  Carrier (typename DOMAIN_NAMESPACE::SchemaTraits<Kind>::Optional &);
+
+#endif // LEESA_FOR_UDM
   
   template <class Z>
   Carrier (Carrier<Z> const &);

@@ -2,7 +2,7 @@
 #define __SEQUENCE_HPP
 
 #ifdef __GXX_EXPERIMENTAL_CXX0X__ 
-/*
+
 #include <typeinfo>
 
 namespace boost {
@@ -92,122 +92,57 @@ struct contains <vector<>, What>
   enum { value = 0 };
 };
 
-
-template <typename... Arg>
-struct vector0 {};
-
-template <typename Head, typename... Tail>
-struct front <vector0 <Head, Tail...> >
+template <class V1, template <typename> class Pred>
+struct copy_if
 {
-  typedef Head type;
+  typedef typename front<V1>::type Head;
+  typedef typename pop_front<V1>::type Tail;
+  typedef typename std::conditional<
+                      Pred<Head>::value,
+                      typename push_back<typename copy_if<Tail, Pred>::type,
+                                         Head
+                                        >::type,
+                      typename copy_if<Tail, Pred>::type>::type type;
 };
 
-template <>
-struct front <vector0 <> >
+template <template <typename> class Pred>
+struct copy_if <vector<>, Pred>
 {
-  typedef null_type type;
+  typedef vector<> type;
 };
 
-template <typename Head, typename... Tail>
-struct pop_front <vector0 <Head, Tail...> >
+template <class V1, template <typename> class Pred>
+struct remove_if
 {
-  typedef vector0<Tail...> type;
+  typedef typename front<V1>::type Head;
+  typedef typename pop_front<V1>::type Tail;
+  typedef typename std::conditional<
+                      !Pred<Head>::value,
+                      typename push_back<typename copy_if<Tail, Pred>::type,
+                                         Head
+                                        >::type,
+                      typename copy_if<Tail, Pred>::type>::type type;
 };
 
-template <>
-struct pop_front <vector0 <> >
+template <template <typename> class Pred>
+struct remove_if <vector<>, Pred>
 {
-  typedef vector0<> type;
+  typedef vector<> type;
 };
 
-template <typename T, typename... Args>
-struct push_back < vector0<Args...>, T>
+template <class V1, template <typename> class Pred>
+struct count_if
 {
-  typedef vector0<Args..., T> type;
+  typedef count_if type;
+  typedef typename front<V1>::type Head;
+  typedef typename pop_front<V1>::type Tail;
+  enum { value = bool(Pred<Head>::value) + count_if<Tail, Pred>::value };
 };
 
-template <typename... Args>
-struct size <vector0 <Args...> >
+template <template <typename> class Pred>
+struct count_if <vector<>, Pred>
 {
-  typedef size type;
-  enum { value = sizeof...(Args) };
-};
-
-template <typename... Args>
-struct empty <vector0 <Args...> >
-{
-  typedef empty type;
-  enum { value = 0 };
-};
-
-template<>
-struct empty <vector0<> >
-{
-  typedef empty type;
-  enum { value = 1 };
-};
-
-template <typename What, typename Head, typename... Tail>
-struct contains < vector0<Head, Tail...>, What> :
-       std::conditional < std::is_same<Head, What>::value,
-                          std::true_type,
-                          contains < vector0<Tail...>, What>
-                        >::type
-{
-  typedef contains type;
-};
-
-template <typename What>
-struct contains <vector0<>, What>
-{
-    typedef contains type;
-    enum { value = 0 };
-};
-
-
-} // namespace mpl
-} // namespace boost
-*/
-
-#include "boost/mpl/vector.hpp"
-#include "boost/mpl/front.hpp"
-#include "boost/mpl/pop_front.hpp"
-#include "boost/mpl/push_back.hpp"
-#include "boost/mpl/empty.hpp"
-//#include "boost/mpl/size.hpp"
-//#include "boost/mpl/remove_if.hpp"
-//#include "boost/mpl/count_if.hpp"
-//#include "boost/mpl/copy_if.hpp"
-//#include "boost/mpl/contains.hpp"
-
-namespace boost {
-  namespace mpl {
-
-template <typename Vector> struct size;
-
-template <typename... Args>
-struct size <vector <Args...> >
-{
-  typedef size type;
-  enum { value = sizeof...(Args) };
-};
-
-template <typename Vector, typename What> struct contains;
-
-template <typename What, typename Head, typename... Tail>
-struct contains < vector<Head, Tail...>, What> :
-       std::conditional < std::is_same<Head, What>::value,
-                          std::true_type,
-                          contains < vector<Tail...>, What>
-                        >::type
-{
-  typedef contains type;
-};
-
-template <typename What>
-struct contains <vector<>, What>
-{
-  typedef contains type;
+  typedef count_if type;
   enum { value = 0 };
 };
 

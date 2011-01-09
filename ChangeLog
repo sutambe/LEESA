@@ -1,3 +1,23 @@
+Sun Jan  9 13:49:47 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/AP.cpp:
+        * include/LEESA/Carrier_Optimized.h:
+        * include/LEESA/Carrier_Optimized.cpp:
+        * include/LEESA/Concepts.h:
+        * include/LEESA/Operators.cpp:
+        * include/LEESA/SP.cpp:
+        * include/LEESA/Sequence.hpp:
+          Improved support for C++0x variadic templates.
+          10% to 25% improvement in compilation times.
+
+        * tests/PICML-xsd/Makefile:
+        * tests/PICML-xsd/driver.cxx:
+          Improved PICML example
+
+        * tests/library-xsd/Makefile:
+        * tests/library-xsd/driver.cxx:
+          Improved library example
+
 Sat Jan  1 20:31:44 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * bin/gen-meta.py:

@@ -800,7 +800,7 @@ struct MembersAsTupleOp
 
   explicit MembersAsTupleOp () {}
   
-  MembersAsTupleOp (MembersAsTupleOp const & mtop) {}
+  MembersAsTupleOp (MembersAsTupleOp const &) {}
   
   result_type operator () (argument_type const & arg)
   {
@@ -821,7 +821,7 @@ struct MembersAsTupleOp
     push_children(arg, th, Tail());
   }
 
-  void push_children(argument_type const & arg, Transposer<Tuple> & th, boost::tuples::null_type)
+  void push_children(argument_type const &, Transposer<Tuple> &, boost::tuples::null_type)
   {  }
 };
 

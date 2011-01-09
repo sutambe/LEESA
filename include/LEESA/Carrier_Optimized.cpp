@@ -36,6 +36,22 @@ Carrier<Kind>::Carrier(typename ContainerTraits<Kind>::Container & c)
   this->push_back(c);
 }
 
+#ifndef LEESA_FOR_UDM
+
+template <class Kind>
+Carrier<Kind>::Carrier (const typename DOMAIN_NAMESPACE::SchemaTraits<Kind>::Optional & o)
+{
+  this->push_back(o);
+}
+
+template <class Kind>
+Carrier<Kind>::Carrier (typename DOMAIN_NAMESPACE::SchemaTraits<Kind>::Optional & o)
+{
+  this->push_back(o);
+}
+
+#endif // LEESA_FOR_UDM
+
 template <class Kind>
 Carrier<Kind> const & Carrier<Kind>::operator ()(Carrier<Kind> const & c) const
 {

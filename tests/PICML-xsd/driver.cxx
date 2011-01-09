@@ -70,6 +70,7 @@ get_member_child_axis(RootFolderType & rf)
 }
 
 
+
 ::SeqType<ServiceProviderType>::type
 get_service_provider_child_axis(RootFolderType & rf)
 {
@@ -174,7 +175,7 @@ get_datatype_child_axis(RootFolderType & rf)
 }
 */
 
-/*
+
 ::SeqType<AttributeType>::type
 get_member_descendants(RootFolderType & rf)
 {
@@ -190,7 +191,7 @@ get_member_descendants(RootFolderType & rf)
 // one line for return. So we get 6*19 + 10*2 + 2 = 136 lines. 
 #endif
 }
-*/
+
 
 
 ::SeqType<AttributeMemberType>::type
@@ -210,8 +211,7 @@ get_member_level_descendants(RootFolderType & rf)
 }
 
 
-int
-main (int argc, char* argv[])
+int main (int argc, char* argv[])
 {
   if (argc != 2)
   {
