@@ -155,6 +155,88 @@ struct LEESAUnaryFunction <L, void>
   BOOST_CLASS_REQUIRE(argument_kind, LEESA, DomainKindConcept);
 };
 
+template <typename T>
+/* Taking address will not work for functors that have templatized function call operator. */
+struct function_traits : function_traits<decltype(&T::operator())>
+{
+};
+
+template <typename R, typename C>
+struct function_traits<R (C::*)()> 
+{
+  typedef R result_type;
+};
+
+template <typename R, typename C, typename Arg>
+struct function_traits<R (C::*)(Arg)> 
+{
+  typedef R result_type;
+  typedef Arg argument_type;
+};
+
+template <typename R, typename C, typename Arg1, typename Arg2>
+struct function_traits<R (C::*)(Arg1, Arg2)> 
+{
+  typedef R result_type;
+  typedef Arg1 first_argument_type;
+  typedef Arg2 second_argument_type;
+};
+
+template <typename R, typename C>
+struct function_traits<R (C::*)() const> 
+{
+  typedef R result_type;
+};
+
+template <typename R, typename C, typename Arg>
+struct function_traits<R (C::*)(Arg) const> 
+{
+  typedef R result_type;
+  typedef Arg argument_type;
+};
+
+template <typename R, typename C, typename Arg1, typename Arg2>
+struct function_traits<R (C::*)(Arg1, Arg2) const> 
+{
+  typedef R result_type;
+  typedef Arg1 first_argument_type;
+  typedef Arg2 second_argument_type;
+};
+
+template <typename R>
+struct function_traits<R (*)()> 
+{
+  typedef R result_type;
+};
+
+template <typename R, typename Arg>
+struct function_traits<R (*)(Arg)> 
+{
+  typedef R result_type;
+  typedef Arg argument_type;
+};
+
+template <typename R, typename Arg1, typename Arg2>
+struct function_traits<R (*)(Arg1, Arg2)> 
+{
+  typedef R result_type;
+  typedef Arg1 first_argument_type;
+  typedef Arg2 second_argument_type;
+};
+
+template <typename R>
+struct function_traits<R ()> 
+{
+  typedef R result_type;
+};
+
+template <typename R, typename Arg>
+struct function_traits<R (Arg)> 
+{
+  typedef R result_type;
+  typedef Arg argument_type;
+};
+
 
 } // namespace LEESA
 

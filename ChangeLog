@@ -1,3 +1,23 @@
+Tue Feb 22 08:08:53 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * INSTALL.txt:
+
+        * include/LEESA/Expression_Traits.h:
+          Added function_traits to handle C++0x lambdas.
+          Lambdas don't have argument_type and result_type defined. LEESA
+          needs them. function_traits deduce them from lambdas. 
+
+        * include/LEESA/Operators.cpp:
+        * include/LEESA/SP.cpp:
+          Use new function_traits.
+
+        * tests/PICML-xsd/README:
+
+        * tests/library-xsd/Makefile:
+        * tests/library-xsd/README:
+        * tests/library-xsd/driver.cxx:
+          New test program using C++0x lambda.
+
 Tue Feb 22 07:09:29 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/Carrier_Optimized.h:
@@ -12,8 +32,8 @@ Tue Feb 22 07:09:29 UTC 2011  Sumant Tambe  <sutambe@nospam>
         * tests/library-xsd/library-10.0.sln:
         * tests/library-xsd/library-10.0.vcxproj:
         * tests/library-xsd/library.xml:
-		
-		Added Visual Studio 2010 solution files for library and picml examples.
+
+                Added Visual Studio 2010 solution files for library and picml examples.
 
 Sun Jan  9 13:49:47 UTC 2011  Sumant Tambe  <sutambe@nospam>
 

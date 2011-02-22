@@ -1030,7 +1030,7 @@ Call (E, Func f)
   typedef typename ET<E>::result_kind result_kind;
   
   BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
-  BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename Func::argument_type>));
+  BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename function_traits<Func>::argument_type>));
   
   return CallerOp<typename ET<E>::result_type, Func> (f);
 }

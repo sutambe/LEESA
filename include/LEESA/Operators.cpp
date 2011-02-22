@@ -977,8 +977,8 @@ Select (E, Func f)
   typedef typename ET<E>::result_kind result_kind;
   
   BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
-  BOOST_MPL_ASSERT((boost::is_convertible<typename Func::argument_type, result_kind>));
-  BOOST_MPL_ASSERT((boost::is_convertible<typename Func::result_type, bool>));
+  BOOST_MPL_ASSERT((boost::is_convertible<typename function_traits<Func>::argument_type, result_kind>));
+  BOOST_MPL_ASSERT((boost::is_convertible<typename function_traits<Func>::result_type, bool>));
   
   return FilterOp<E, Func> (f);
 }
@@ -1018,7 +1018,7 @@ ForEach (E, Func f)
   typedef typename ET<E>::result_kind result_kind;
   
   BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
-  BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename Func::argument_type>));
+  BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename function_traits<Func>::argument_type>));
   
   return ForEachOp<typename ET<E>::result_type, Func> (f);
 }

@@ -6,12 +6,7 @@
 #include <string>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
-
-#ifdef WIN32
-#include "gettimeofday_win.hxx"
-#else
 #include <sys/time.h>
-#endif // WIN32
 
 #include "library.hxx"
 
@@ -154,6 +149,13 @@ bool comparator(library::name const & n)
   return n=="Leo Tolstoy";
 }
 
+//struct match : std::unary_function<library::name, bool> { // No need for function_traits but won't hurt.
+struct match { // using function_traits
+  bool operator () (library::name const & n) { 
+    return n=="Leo Tolstoy";
+  }
+};
+
 // Get a sequence of author names.
 SeqType<name>::type
 get_author_names_level_descendants_of (catalog & c)
@@ -166,7 +168,12 @@ get_author_names_level_descendants_of (catalog & c)
 //                           >> Select(name(), comparator));
 
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
-    >> Select(name(), [](library::name const & n) { return n=="Leo Tolstoy"; }));
+                           >> Select(name(), match()));
+#ifdef __GXX_EXPERIMENTAL_CXX0X__ 
+//    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+//                           >> Select(name(), [](const library::name & n) mutable { return n=="Leo Tolstoy"; }));
+#endif // __GXX_EXPERIMENTAL_CXX0X__ 
+
 #endif 
 #ifdef WITHOUT_LEESA
   SeqType<name>::type name_seq; 

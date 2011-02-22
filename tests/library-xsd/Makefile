@@ -1,6 +1,6 @@
-CXX=g++
-#CXX=g++45
-#CXXFLAGS='-std=c++0x -Wno-deprecated -D TEST4'
+#CXX=g++
+CXX=g++45
+CXXFLAGS=-std=c++0x -Wno-deprecated -D TEST5
 
 ifndef $(XSD_ROOT)
   XSD_INCLUDE=

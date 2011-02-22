@@ -1,6 +1,9 @@
 1. Obtain xsdcxx  
    Fedora: sudo yum install xsdcxx
    Ubuntu: sudo apt-get install xsdcxx
+   If xsdcxx can't be installed, obtain xsdcxx from
+   http://www.codesynthesis.com/products/xsd/download.xhtml 
+   and set $XSD_ROOT to the root directory of the installation.
 
 2. Install python-dev, libxslt1-dev, libxml2-dev, doxygen, xsltproc, and libxerces-c-dev.
    Fedora: sudo yum install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev
@@ -18,12 +21,23 @@
 
 7. make driver
 
-If xsdcxx can't be installed, obtain xsdcxx from
-http://www.codesynthesis.com/products/xsd/download.xhtml and set $XSD_ROOT to the root directory of the installation.
 
+Windows
+=======
 
-On Windows
+1. Obtain xsd from http://www.codesynthesis.com/products/xsd/download.xhtml 
+   and set %XSD_ROOT% to the root directory of the installation.
 
-Set XSD_ROOT
-Set LEESA_ROOT
-Set BOOST_ROOT
+2. Install python, doxygen, and xsltproc.
+   Make sure they are accessible from %PATH%
+
+3. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+   svn co svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA LEESA
+
+4. Set $LEESA_ROOT
+
+5. Obtain boost from boostpro.com
+   Set %BOOST_ROOT%
+
+6. Use .sln file to open the projects in Visual Studio.
+
