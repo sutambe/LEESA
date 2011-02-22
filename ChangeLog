@@ -1,3 +1,20 @@
+Tue Feb 22 07:09:29 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/Carrier_Optimized.h:
+
+        * tests/PICML-xsd/picml-10.0.sln:
+        * tests/PICML-xsd/picml-10.0.vcxproj:
+
+        * tests/library-xsd/README:
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/gettimeofday_win.cxx:
+        * tests/library-xsd/gettimeofday_win.hxx:
+        * tests/library-xsd/library-10.0.sln:
+        * tests/library-xsd/library-10.0.vcxproj:
+        * tests/library-xsd/library.xml:
+		
+		Added Visual Studio 2010 solution files for library and picml examples.
+
 Sun Jan  9 13:49:47 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/AP.cpp:

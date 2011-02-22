@@ -55,7 +55,7 @@ public:
   friend class ConstConductor<Kind>;
   friend class Conductor<Kind>;
   friend class NodeIterator<Kind>;
-  friend class LEESA::SingleStage::ConstCast<Kind>;
+  friend struct LEESA::SingleStage::ConstCast<Kind>;
 };
 
 template <class Kind>
@@ -150,7 +150,7 @@ public:
   typedef Kind & reference;
   //typedef const Kind & const_reference;
   
-  friend class ::LEESA::SingleStage::ConstCast<Kind>;
+  friend struct ::LEESA::SingleStage::ConstCast<Kind>;
   
   template <class Z>
   struct rebind

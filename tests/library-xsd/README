@@ -20,3 +20,10 @@
 
 If xsdcxx can't be installed, obtain xsdcxx from
 http://www.codesynthesis.com/products/xsd/download.xhtml and set $XSD_ROOT to the root directory of the installation.
+
+
+On Windows
+
+Set XSD_ROOT
+Set LEESA_ROOT
+Set BOOST_ROOT

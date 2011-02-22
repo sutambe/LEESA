@@ -6,7 +6,12 @@
 #include <string>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
+
+#ifdef WIN32
+#include "gettimeofday_win.hxx"
+#else
 #include <sys/time.h>
+#endif // WIN32
 
 #include "library.hxx"
 
@@ -155,11 +160,13 @@ get_author_names_level_descendants_of (catalog & c)
 {
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
-    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name()));
-/*
+//    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name()));
+
+//    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+//                           >> Select(name(), comparator));
+
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
-                           >> Select(name(), comparator));
-*/
+    >> Select(name(), [](library::name const & n) { return n=="Leo Tolstoy"; }));
 #endif 
 #ifdef WITHOUT_LEESA
   SeqType<name>::type name_seq; 
