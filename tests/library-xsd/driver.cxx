@@ -6,7 +6,12 @@
 #include <string>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
+
+#ifdef WIN32
+#include "gettimeofday_win.hxx"
+#else
 #include <sys/time.h>
+#endif
 
 #include "library.hxx"
 

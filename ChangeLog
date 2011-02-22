@@ -1,3 +1,8 @@
+Tue Feb 22 08:15:10 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * tests/library-xsd/driver.cxx:
+          Fixed compilation problems on Visual Studio 2010
+          
 Tue Feb 22 08:08:53 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * INSTALL.txt:
@@ -5,7 +10,7 @@ Tue Feb 22 08:08:53 UTC 2011  Sumant Tambe  <sutambe@nospam>
         * include/LEESA/Expression_Traits.h:
           Added function_traits to handle C++0x lambdas.
           Lambdas don't have argument_type and result_type defined. LEESA
-          needs them. function_traits deduce them from lambdas. 
+          needs them. function_traits deduce them from lambdas.
 
         * include/LEESA/Operators.cpp:
         * include/LEESA/SP.cpp:
