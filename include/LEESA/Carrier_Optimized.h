@@ -217,11 +217,11 @@ public:
 
 #endif // LEESA_FOR_UDM
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__   
+#ifdef LEESA_SUPPORTS_RVALUE_REF
   Carrier (Carrier && c);
   Carrier & operator = (Carrier && c);
-#endif // __GXX_EXPERIMENTAL_CXX0X__
-
+#endif // LEESA_SUPPORTS_RVALUE_REF
+  
 };
 
 template <class Kind>

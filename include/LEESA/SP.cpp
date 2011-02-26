@@ -278,7 +278,7 @@ struct LEESAException : public std::runtime_error
 };
 
 typedef boost::mpl::vector<>  EmptyMPLVector;
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
 typedef boost::mpl::vector0<> EmptyMPLVector0;
 #endif
 
@@ -396,7 +396,7 @@ struct FilterChildrenIfNotDescendantCarry : Custom
 {};
 
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_VARIADIC_TEMPLATES
 
 template <class ResultKind, class Custom>
 struct FilterChildrenIfNotDescendantPredicate
@@ -431,7 +431,7 @@ struct FilterChildrenIfNotDescendantImpl
                                  ResultKind, 
                                  Custom> > >::type type;
 };
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_VARIADIC_TEMPLATES
 
 template <class T, class H, class Custom>
 /* By default Custom is LEESA::Default. Check in DescendantOp. */
@@ -574,7 +574,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
       else
         dispatch(o, Tail());
     }
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(Udm::Object, EmptyMPLVector0) { }
 #endif
@@ -621,7 +621,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
       if(!success_)
         dispatch(arg, Tail());
     }
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(argument_kind const &,  EmptyMPLVector0) { }
 #endif
@@ -675,7 +675,7 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       else
         dispatch(o, Tail());
     }
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(Udm::Object, EmptyMPLVector0) { }
 #endif
@@ -725,7 +725,7 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       }
       dispatch(arg, Tail());
     }
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     void dispatch(argument_kind const &, EmptyMPLVector0) { }
 #endif

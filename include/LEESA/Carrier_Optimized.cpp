@@ -309,7 +309,7 @@ void swap(Carrier<Kind> & c1, Carrier<Kind> & c2)
   c1.swap(c2);
 }            
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__   
+#ifdef LEESA_SUPPORTS_RVALUE_REF
 template <class Kind>
 Carrier<Kind>::Carrier (Carrier<Kind> && c)
   : first_(0), last_(0), size_(0)
@@ -324,7 +324,7 @@ Carrier<Kind> & Carrier<Kind>::operator = (Carrier<Kind> && c)
   return *this;
 }
 
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_RVALUE_REF
 
 /************************ Conductor *************************/
   

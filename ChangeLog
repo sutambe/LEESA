@@ -1,3 +1,27 @@
+Sat Feb 26 20:54:22 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/AP.cpp:
+        * include/LEESA/Carrier_Optimized.h:
+        * include/LEESA/Carrier_Optimized.cpp:
+        * include/LEESA/Carrier_Simple.h:
+        * include/LEESA/Concepts.h:
+        * include/LEESA/Expression_Traits.h:
+        * include/LEESA/Kind_Traits.h:
+        * include/LEESA/LEESA.cpp:
+        * include/LEESA/Operators.cpp:
+        * include/LEESA/SP.cpp:
+        * include/LEESA/Sequence.hpp:
+        * include/LEESA/SingleStage.h:
+
+          Added descriptive conditional compilation guards for rvalue-ref,
+          lambda, decltype, and variadic templates
+
+        * tests/library-xsd/Makefile:
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/testN.sh:
+
+          Improved test code and a script for automating testing.
+
 Tue Feb 22 08:15:10 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * tests/library-xsd/driver.cxx:

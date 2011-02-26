@@ -147,7 +147,7 @@ class Carrier : public std::unary_function<Carrier<Kind>, Carrier<Kind> >
 
 #endif // LEESA_FOR_UDM
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_RVALUE_REF 
 
   Carrier (Kind && k) 
   {
@@ -198,7 +198,7 @@ class Carrier : public std::unary_function<Carrier<Kind>, Carrier<Kind> >
       this->insert(this->end(), in.begin(), in.end());
   }
 
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_RVALUE_REF
 
 };
 

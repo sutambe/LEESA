@@ -110,9 +110,9 @@ struct ChainExpr : LEESAUnaryFunction <L, R>
     : l_(l), r_(r) {}
   result_type operator () (argument_type const & p) { return r_(l_(p)); }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__  
+#ifdef LEESA_SUPPORTS_RVALUE_REF 
   result_type operator () (argument_type && p) { return r_(l_(p)); }
-#endif //  __GXX_EXPERIMENTAL_CXX_0X  
+#endif //  LEESA_SUPPORTS_RVALUE_REF  
 };
 
 template <class L, class R>

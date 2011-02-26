@@ -32,11 +32,11 @@ struct ConstCast : std::unary_function<LEESA::Carrier<Kind>, LEESA::Carrier<Kind
   result_type operator () (argument_type const & arg) const
   {
     argument_type & non_const_arg = const_cast<argument_type &>(arg);
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_RVALUE_REF
     return std::move(non_const_arg);
 #else
     return non_const_arg;
-#endif // __GXX_EXPERIMENTAL_CXX0X__ 
+#endif // LEESA_SUPPORTS_RVALUE_REF 
   }
 };
 
@@ -61,11 +61,11 @@ template <class ParentKind, class ChildKind>
 typename 
   boost::disable_if <IsDomainVisitorBaseOf<ChildKind>,
                      Carrier<ChildKind> >::type
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_RVALUE_REF
 operator >> (Carrier<ParentKind> && cpk, ChildKind const & ck)
 #else
 operator >> (Carrier<ParentKind> & cpk, ChildKind const & ck)
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_RVALUE_REF
 {
   BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<ParentKind, ChildKind>));
   Carrier<ChildKind> retval;
@@ -120,11 +120,11 @@ operator >> (Carrier<Kind> const & ck, ConstCast<Kind> const & cc)
 
 template <class Kind>
 Carrier<Kind>
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_RVALUE_REF
 operator >> (Carrier<Kind> && ck, SchemaVisitor & v)
 #else
 operator >> (Carrier<Kind> & ck, SchemaVisitor & v)
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_RVALUE_REF
 {
   BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
   BOOST_FOREACH(typename Carrier<Kind>::reference kind, ck)
@@ -135,11 +135,11 @@ operator >> (Carrier<Kind> & ck, SchemaVisitor & v)
     kind.accept(v);
 #endif // LEESA_FOR_UDM
   }
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_RVALUE_REF
   return std::move(ck);
 #else
   return ck;
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_RVALUE_REF
 }
 
 } // namespace SingleStage

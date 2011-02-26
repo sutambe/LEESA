@@ -314,7 +314,7 @@ private:
     }
   }
 
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
   template <class F> void from_through(F, EmptyMPLVector0) { }
 #endif
 
@@ -342,7 +342,7 @@ private:
     through_to(through, Tail());
   }
 
-#ifndef __GXX_EXPERIMENTAL_CXX0X__
+#ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
   template <class F> void through_to(F, EmptyMPLVector0) { }
 #endif
 

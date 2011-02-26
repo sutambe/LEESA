@@ -57,7 +57,7 @@ namespace LEESA
                    boost::is_convertible<L, H>::value }; 
   };
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__
+#ifdef LEESA_SUPPORTS_VARIADIC_TEMPLATES 
   template <class ChildKind>
   struct IsBaseOf
   {
@@ -106,7 +106,7 @@ namespace LEESA
                                                              ChildKind> 
                                          >::value)    }; 
   };
-#endif // __GXX_EXPERIMENTAL_CXX0X__
+#endif // LEESA_SUPPORTS_VARIADIC_TEMPLATES
 
   template <class ChildKind, class ParentKind, class Custom = Default>
   struct ChildToParentConcept 

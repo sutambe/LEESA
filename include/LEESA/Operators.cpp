@@ -136,7 +136,7 @@ struct GetChildrenOp :
     return retval;
   }
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__  
+#ifdef LEESA_SUPPORTS_RVALUE_REF  
   result_type operator () (argument_type && arg)
   {
     BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
@@ -150,7 +150,7 @@ struct GetChildrenOp :
     }
     return retval;
   }
-#endif // __GXX_EXPERIMENTAL_CXX0X__  
+#endif // LEESA_SUPPORTS_RVALUE_REF  
 
   template <class Left, class Right>
   void dispatch_depth_first(result_type & r, ChainExpr<Left, Right> & expr)
@@ -185,12 +185,12 @@ struct StoreAtOp : LEESAUnaryFunction <E>, OpBase
     store_ = arg;
   }
   
-#ifdef __GXX_EXPERIMENTAL_CXX0X__  
+#ifdef LEESA_SUPPORTS_RVALUE_REF  
   result_type operator () (argument_type && arg)
   {
     store_ = std::move(arg);
   }
-#endif // __GXX_EXPERIMENTAL_CXX0X__  
+#endif // LEESA_SUPPORTS_RVALUE_REF  
 };
 
 #ifndef LEESA_NO_VISITOR
@@ -223,7 +223,7 @@ struct VisitorOp : LEESAUnaryFunction <E>,
     return arg;
   }
   
-#ifdef __GXX_EXPERIMENTAL_CXX0X__  
+#ifdef LEESA_SUPPORTS_RVALUE_REF  
   result_type operator () (argument_type && arg)
   {
     BOOST_FOREACH(argument_kind & kind, arg)
@@ -232,7 +232,7 @@ struct VisitorOp : LEESAUnaryFunction <E>,
     }
     return std::move(arg);
   }
-#endif // __GXX_EXPERIMENTAL_CXX0X__  
+#endif // LEESA_SUPPORTS_RVALUE_REF  
 };
 
 template <class E>
@@ -263,7 +263,7 @@ struct LeaveCallerOp : LEESAUnaryFunction <E>,
     return arg;
   }
   
-#ifdef __GXX_EXPERIMENTAL_CXX0X__  
+#ifdef LEESA_SUPPORTS_RVALUE_REF  
   result_type operator () (argument_type && arg)
   {
     BOOST_FOREACH(argument_kind & kind, arg)
@@ -272,7 +272,7 @@ struct LeaveCallerOp : LEESAUnaryFunction <E>,
     }
     return std::move(arg);
   }
-#endif // __GXX_EXPERIMENTAL_CXX0X__  
+#endif // LEESA_SUPPORTS_RVALUE_REF  
 };
 
 template <class E, class Func = E>
@@ -312,7 +312,7 @@ struct PairCallerOp : LEESAUnaryFunction <E>, OpBase
     return arg;
   }
   
-#ifdef __GXX_EXPERIMENTAL_CXX0X__  
+#ifdef LEESA_SUPPORTS_RVALUE_REF  
   result_type operator () (argument_type && arg)
   {
     BOOST_FOREACH(argument_kind & kind, arg)
@@ -323,7 +323,7 @@ struct PairCallerOp : LEESAUnaryFunction <E>, OpBase
     }
     return std::move(arg);
   }
-#endif // __GXX_EXPERIMENTAL_CXX0X__  
+#endif // LEESA_SUPPORTS_RVALUE_REF  
 };
 
 #endif // LEESA_NO_VISITOR

@@ -1,7 +1,7 @@
 #ifndef __SEQUENCE_HPP
 #define __SEQUENCE_HPP
 
-#ifdef __GXX_EXPERIMENTAL_CXX0X__ 
+#ifdef LEESA_SUPPORTS_VARIADIC_TEMPLATES 
 
 #include <typeinfo>
 
@@ -151,7 +151,7 @@ struct count_if <vector<>, Pred>
 
 #define LEESA_MPL_VECTOR_N(N,...) boost::mpl::vector<__VA_ARGS__>
 
-#else // __GXX_EXPERIMENTAL_CXX0X__ 
+#else // LEESA_SUPPORTS_VARIADIC_TEMPLATES 
 
 #define LEESA_MPL_VECTOR_N(N,...) boost::mpl::vector##N<__VA_ARGS__>
 
@@ -197,7 +197,7 @@ struct count_if <vector<>, Pred>
 #include <boost/mpl/copy_if.hpp>
 #include <boost/mpl/contains.hpp>
 
-#endif // __GXX_EXPERIMENTAL_CXX0X__ 
+#endif // LEESA_SUPPORTS_VARIADIC_TEMPLATES 
 
 namespace LEESA {
 

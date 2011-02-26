@@ -154,8 +154,11 @@ bool comparator(library::name const & n)
   return n=="Leo Tolstoy";
 }
 
-//struct match : std::unary_function<library::name, bool> { // No need for function_traits but won't hurt.
-struct match { // using function_traits
+#ifdef LEESA_SUPPORTS_DECLTYPE
+struct match { // not using unary_function
+#else
+struct match : std::unary_function<library::name, bool> {
+#endif
   bool operator () (library::name const & n) { 
     return n=="Leo Tolstoy";
   }
@@ -167,17 +170,16 @@ get_author_names_level_descendants_of (catalog & c)
 {
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
-//    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name()));
 
 //    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
 //                           >> Select(name(), comparator));
 
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
                            >> Select(name(), match()));
-#ifdef __GXX_EXPERIMENTAL_CXX0X__ 
+#ifdef LEESA_SUPPORTS_LAMBDA
 //    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
 //                           >> Select(name(), [](const library::name & n) mutable { return n=="Leo Tolstoy"; }));
-#endif // __GXX_EXPERIMENTAL_CXX0X__ 
+#endif 
 
 #endif 
 #ifdef WITHOUT_LEESA

@@ -5,10 +5,18 @@
 #error "Please #define DOMAIN_NAMESPACE"
 #endif
 
-#include "LEESA/Sequence.hpp"
+#ifdef __GXX_EXPERIMENTAL_CXX0X__ // g++ -std=c++0x
+  #define LEESA_SUPPORTS_VARIADIC_TEMPLATES
+  #define LEESA_SUPPORTS_RVALUE_REF
+  #define LEESA_SUPPORTS_DECLTYPE
+  #define LEESA_SUPPORTS_LAMBDA
+#elif (_MSC_VER == 1600) // Visual Studio 2010
+  #define LEESA_SUPPORTS_RVALUE_REF
+  #define LEESA_SUPPORTS_DECLTYPE
+  #define LEESA_SUPPORTS_LAMBDA
+#endif 
 
-#include <boost/mpl/or.hpp>
-#include <boost/mpl/placeholders.hpp>
+#include "LEESA/Sequence.hpp"
 
 #include <boost/type_traits.hpp>
 
@@ -133,8 +141,6 @@ namespace LEESA {
 
 #endif // LEESA_FOR_UDM
 
-
-
 #ifdef DOMAIN_HAS_DESCENDANT_PAIRS
 
 template <class Parent, class Descendant>
@@ -145,6 +151,9 @@ struct IsDescendantKind <Parent, Descendant, Default>
 };
 
 #else
+
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 // The following metaprogram is suitable for elements with SELF as well as 
 // MUTUAL-RECURSION. This meta-program could be used as a substitute for the 

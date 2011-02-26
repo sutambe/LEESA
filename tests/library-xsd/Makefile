@@ -1,6 +1,7 @@
 #CXX=g++
 CXX=g++45
-CXXFLAGS=-std=c++0x -Wno-deprecated -D TEST5
+#CXXFLAGS=-std=c++0x -Wno-deprecated -D TEST5 -D WITH_LEESA
+CXXFLAGS=-Wno-deprecated -D TEST5 -D WITH_LEESA 
 
 ifndef $(XSD_ROOT)
   XSD_INCLUDE=
@@ -11,7 +12,7 @@ else
 endif
 
 driver: driver.cxx library.o library-meta.o
-	$(CXX) $(CXXFLAGS) driver.cxx library.o library-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c -D WITH_LEESA
+	$(CXX) $(CXXFLAGS) driver.cxx library.o library-meta.o -o driver $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall -lxerces-c 
         
 library.o: library.cxx library.hxx
 	$(CXX) $(CXXFLAGS) -c library.cxx -o library.o $(XSD_INCLUDE) -I$(LEESA_ROOT)/include -W -Wall

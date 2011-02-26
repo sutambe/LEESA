@@ -155,11 +155,23 @@ struct LEESAUnaryFunction <L, void>
   BOOST_CLASS_REQUIRE(argument_kind, LEESA, DomainKindConcept);
 };
 
-template <typename T>
-/* Taking address will not work for functors that have templatized function call operator. */
+
+#ifdef LEESA_SUPPORTS_DECLTYPE
+
+template <typename T> 
 struct function_traits : function_traits<decltype(&T::operator())>
-{
+{};
+
+#else // LEESA_SUPPORTS_DECLTYPE
+
+template <typename T>
+struct function_traits 
+{ 
+  typedef typename T::result_type result_type;
+  typedef typename T::argument_type argument_type;
 };
+
+#endif // LEESA_SUPPORTS_DECLTYPE
 
 template <typename R, typename C>
 struct function_traits<R (C::*)()> 
