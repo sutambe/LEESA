@@ -6,6 +6,7 @@
 #include <string>
 #include <boost/tuple/tuple.hpp>
 #include <boost/tuple/tuple_io.hpp>
+#include <boost/bind/bind.hpp>
 
 #ifdef WIN32
 #include "gettimeofday_win.hxx"
@@ -154,11 +155,7 @@ bool comparator(library::name const & n)
   return n=="Leo Tolstoy";
 }
 
-#ifdef LEESA_SUPPORTS_DECLTYPE
-struct match { // not using unary_function
-#else
-struct match : std::unary_function<library::name, bool> {
-#endif
+struct match_unary {
   bool operator () (library::name const & n) { 
     return n=="Leo Tolstoy";
   }
@@ -171,14 +168,17 @@ get_author_names_level_descendants_of (catalog & c)
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
 
-//    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
-//                           >> Select(name(), comparator));
+    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+                           >> Select(name(), comparator));
 
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
-                           >> Select(name(), match()));
+                           >> Select(name(), match_unary()));
+
+    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+                           >> Select(name(), boost::bind(std::equal_to<std::string>(), _1, "Leo Tolstoy")));
 #ifdef LEESA_SUPPORTS_LAMBDA
-//    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
-//                           >> Select(name(), [](const library::name & n) mutable { return n=="Leo Tolstoy"; }));
+    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+                           >> Select(name(), [](const library::name & n) mutable { return n=="Leo Tolstoy"; }));
 #endif 
 
 #endif 
@@ -456,11 +456,11 @@ int main (int argc, char* argv[])
       if (get<0>(*iter) && get<1>(*iter))
         std::cout << "[" << *get<0>(*iter) << ", " << *get<1>(*iter) << "]\n";
       else if (!get<0>(*iter) && get<1>(*iter))
-        std::cout << "[0, " << *get<1>(*iter) << "]\n";
+        std::cout << "[NULL, " << *get<1>(*iter) << "]\n";
       else if (get<0>(*iter) && !get<1>(*iter))
-        std::cout << "[" << *get<0>(*iter) << ", 0]\n";
+        std::cout << "[" << *get<0>(*iter) << ", NULL]\n";
       else
-        std::cout << "[0, 0]\n";
+        std::cout << "[NULL, NULL]\n";
       
     }
 #endif

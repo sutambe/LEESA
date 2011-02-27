@@ -25,19 +25,6 @@ copyright : not copyrighted - public domain
     <price>99.99</price>
   </book>
 
-
-  <book available="true">
-    <isbn>999999999</isbn>
-    <title>C++ Truths</title>
-    <genre>philosophy</genre>
-
-    <author>
-      <name>Sumant Tambe</name>
-      <born>2012-01-01</born>
-    </author>
-    <price>9.99</price>
-  </book>
-
   <book>
     <isbn>0679600841</isbn>
     <title>War and Peace</title>
@@ -50,7 +37,6 @@ copyright : not copyrighted - public domain
     </author>
     <price>10</price>
   </book>
-
 
   <book available="false">
     <isbn>0679420290</isbn>

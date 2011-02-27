@@ -1,3 +1,17 @@
+Sun Feb 27 21:34:21 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/Expression_Traits.h:
+        * include/LEESA/Operators.cpp:
+        * include/LEESA/SP.cpp:
+          function_traits are removed because C++0x lambdas and boost::bind
+          function objects don't have argument_type and result_type typedefs.
+
+        * tests/library-xsd/Makefile:
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/library.xml:
+          Improved library-xsd's TEST5. It now tetst free functions, custom
+          functors, boost::bind functros, and C++0x lambdas.
+
 Sun Feb 27 00:27:42 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/Carrier_Optimized.cpp:
