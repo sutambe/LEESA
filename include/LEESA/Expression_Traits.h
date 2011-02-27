@@ -158,6 +158,11 @@ struct LEESAUnaryFunction <L, void>
 
 #ifdef LEESA_SUPPORTS_DECLTYPE
 
+/* This way of finding components of the function signature won't work when 
+ * there are more than one T::operator() in T or if it is a member template. 
+ * TEST8 in library-xsd fails in C++0x mode for this reason: ChainExpr has
+ * two operator(): an additional one that takes parameters as rvalue ref. 
+ */
 template <typename T> 
 struct function_traits : function_traits<decltype(&T::operator())>
 {};

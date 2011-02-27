@@ -57,10 +57,10 @@ class Carrier : public std::unary_function<Carrier<Kind>, Carrier<Kind> >
 
   void swap (Carrier & c)
   {
-    //using std::swap;
+    // using std::swap;
     // I'm hoping that Koenig lookup will pickup the most
     // appropriate swap for whatever Carrier's container is.
-    //swap(c1.c_, c2.c_);
+    // swap(c1.c_, c2.c_);
     this->c_.swap(c.c_);
   }
 
@@ -155,24 +155,24 @@ class Carrier : public std::unary_function<Carrier<Kind>, Carrier<Kind> >
   }
 
   Carrier (Carrier && c) 
+    : c_(std::move(c.c_))
   {
-    this->swap(c);
   }
   
   Carrier (Container && c) 
+    : c_(std::move(c))
   {
-    this->c_.swap(c);
   }
   
   Carrier & operator = (Carrier && c)
   {
-    this->swap(c);
+    Carrier(std::move(c)).swap(*this);
     return *this;
   }
  
   Carrier & operator = (Container && c)
   {
-    this->c_.swap(c.c_);
+    Carrier(std::move(c)).swap(*this);
     return *this;
   }
  
@@ -191,7 +191,6 @@ class Carrier : public std::unary_function<Carrier<Kind>, Carrier<Kind> >
 
   void push_back(Container && in)
   {
-    //std::cout << "push_back (super &&)\n";
     if(this->empty())
       this->c_.swap(in);
     else

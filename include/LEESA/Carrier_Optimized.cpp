@@ -320,7 +320,7 @@ Carrier<Kind>::Carrier (Carrier<Kind> && c)
 template <class Kind>
 Carrier<Kind> & Carrier<Kind>::operator = (Carrier<Kind> && c)
 {
-  this->swap(c);
+  Carrier<Kind>(std::move(c)).swap(*this);
   return *this;
 }
 

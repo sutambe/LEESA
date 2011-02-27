@@ -111,7 +111,7 @@ struct ChainExpr : LEESAUnaryFunction <L, R>
   result_type operator () (argument_type const & p) { return r_(l_(p)); }
 
 #ifdef LEESA_SUPPORTS_RVALUE_REF 
-  result_type operator () (argument_type && p) { return r_(l_(p)); }
+  result_type operator () (argument_type && p) { return r_(l_(std::move(p))); }
 #endif //  LEESA_SUPPORTS_RVALUE_REF  
 };
 

@@ -1,3 +1,12 @@
+Sun Feb 27 00:27:42 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/Carrier_Optimized.cpp:
+        * include/LEESA/Carrier_Simple.h:
+        * include/LEESA/Expression_Traits.h:
+        * include/LEESA/LEESA.cpp:
+
+        * tests/library-xsd/Makefile:
+
 Sat Feb 26 20:54:22 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/AP.cpp:
@@ -26,7 +35,7 @@ Tue Feb 22 08:15:10 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * tests/library-xsd/driver.cxx:
           Fixed compilation problems on Visual Studio 2010
-          
+
 Tue Feb 22 08:08:53 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * INSTALL.txt:
