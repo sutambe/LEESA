@@ -38,33 +38,16 @@ struct SeqType
 
 #include <vector>
 
-//#if(!defined TEST1 && !defined TEST2 && !defined TEST3 && !defined TEST4 && !defined TEST5 && 
-//    !defined TEST6 && !defined TEST7 && !defined TEST8 && !defined TEST9 && !defined TEST10)
-//#define TEST1
-//#endif 
-
 #ifdef TEST1
 // Get a sequence of books.
 SeqType<book>::type
 get_books(catalog & c)
 {
 #ifdef WITH_LEESA  
-  SeqType<book>::type book_seq = 
-    evaluate (c, catalog() >> book());
-  Carrier<book> book_carrier = 
-    evaluate (c, catalog() >> book());
-/*  std::cout << "Carrier size = "  << book_carrier.size() << std::endl;
-  for(Carrier<book>::iterator iter (book_carrier.begin());
-      iter != book_carrier.end();
-      ++iter)
-  {
-    std::cout << *iter << std::endl;
-  }*/
-
+  SeqType<book>::type book_seq = evaluate (c, catalog() >> book());
 #endif 
 #ifdef WITHOUT_LEESA
-  SeqType<book>::type book_seq = 
-    c.book();
+  SeqType<book>::type book_seq = c.book();
 #endif
   
   return book_seq;
