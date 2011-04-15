@@ -139,11 +139,14 @@ struct SequenceExpr : public LEESAUnaryFunction <L, typename ET<L>::argument_typ
   result_type operator () (argument_type arg) 
   {
     l_(arg);
-    typename KindTraits<argument_kind>::Container v = arg;
-    BOOST_FOREACH(argument_kind kind, v)
+    BOOST_FOREACH(argument_kind kind, arg)
     {
-      typename KindTraits<child_kind>::Container c = 
-        kind.template children_kind<child_kind>();
+      typename ET<child_kind>::result_type c = 
+#ifdef LEESA_FOR_UDM
+      kind.template children_kind<child_kind>();
+#else
+      children_kind (kind, static_cast<child_kind *>(0));
+#endif // LEESA_FOR_UDM
       BOOST_FOREACH(child_kind ckind, c)
       { 
         r_(ckind); 

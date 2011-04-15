@@ -1,3 +1,13 @@
+Fri Apr 15 07:35:58 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/LEESA.cpp:
+
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/library-10.0.vcxproj:
+        * tests/library-xsd/lxml-perf.py:
+		
+		Added examples in the driver and fixed bugs in LEESA.cpp
+
 Sun Feb 27 21:34:21 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/Expression_Traits.h:

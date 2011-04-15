@@ -55,7 +55,7 @@ def bench_lxml_findall(tree):  # Superfast
 # about 2 to 2.2 times slower compared to LEESA!
   result = []
 #  for name in tree.findall("//name"):
-  for name in tree.findall("book/author/name"):
+  for name in tree.findall("/book/author/name"):
     result.append(name.text)
   print ("Size of list = " + str(len(result)))
 
@@ -75,7 +75,7 @@ data_file.close()
 schema_file.close()
 end = datetime.now()
 delta = end-start
-print "Parsing time = ", delta
+print ("Parsing time = ", delta)
 
 start = datetime.now()
 #bench_lxml_xpath_direct(root)
@@ -84,6 +84,6 @@ start = datetime.now()
 bench_lxml_findall(tree)
 end = datetime.now()
 delta = end-start
-print "Query time = ", delta
+print ("Query time = ", delta)
 
 

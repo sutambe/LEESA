@@ -111,7 +111,8 @@ get_author_names_descendants_of (catalog & c)
 {
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
-    evaluate (c, catalog() >> DescendantsOf(catalog(), name()));
+  //  evaluate (c, catalog() >> DescendantsOf(catalog(), name()));
+      DescendantsOf(catalog(), name())(c);
 #endif 
 #ifdef WITHOUT_LEESA
   SeqType<name>::type name_seq; 
@@ -302,6 +303,27 @@ void fulltd(catalog &c, visitor &v)
 
 #endif // TEST11
 
+#ifdef TEST12
+
+void aroundfulltd(catalog &c, visitor &v)
+{
+  AroundFullTD(catalog(), VisitStrategy(v), LeaveStrategy(v))(c);
+}
+
+#endif // TEST12
+
+#ifdef TEST13
+
+void membersof(catalog &c, visitor &v)
+{
+  BOOST_AUTO(v_born,  author() >> v >> born() >> v);
+  BOOST_AUTO(v_title, title() >> v);
+  BOOST_AUTO(members, MembersOf(book(), v_born, v_title));
+  evaluate(c, catalog() >>= book() >> members);
+}
+
+#endif // TEST13
+
 timeval operator - (timeval t1, timeval t2)
 {
   if (t1.tv_usec < t2.tv_usec)
@@ -342,6 +364,9 @@ class MyVisitor : public visitor
     virtual void visit_born(born & x) {
       std::cout << "Born: " << x << std::endl;  
     }
+    virtual void visit_title(title & t) {
+      std::cout << "Title: " << t << std::endl;  
+    }
     
     virtual void leave_catalog(catalog &) {
       std::cout << "Leave Catalog:" << std::endl;  
@@ -355,10 +380,14 @@ class MyVisitor : public visitor
     virtual void leave_born(born & x) {
       std::cout << "Leave Born: " << x << std::endl;  
     }
+    virtual void leave_title(title & t) {
+      std::cout << "Leave Title: " << t << std::endl;  
+    }
+
 };
 #endif // WITH_LEESA
 
-#ifdef TEST12
+#ifdef TEST20
 namespace LEESA {
 
 template <class Vector, unsigned SIZE = boost::mpl::size<Vector>::Value>
@@ -391,7 +420,7 @@ evaluate_lazy(Context &, Expr e)
 
 };
 
-#endif // TEST12
+#endif // TEST20
 
 int main (int argc, char* argv[])
 {
@@ -469,9 +498,17 @@ int main (int argc, char* argv[])
     fulltd(*c, v);
 #endif
 #ifdef TEST12
+    MyVisitor v;
+    aroundfulltd(*c, v);
+#endif
+#ifdef TEST13
+    MyVisitor v;
+    membersof(*c, v);
+#endif
+#ifdef TEST20
     LEESA::evaluate_lazy(*c, catalog() >>= book() >>= author());
 #endif
-
+    
     gettimeofday(&end, 0);
 
     std::cout << "Query-time = " << end-start << std::endl;
