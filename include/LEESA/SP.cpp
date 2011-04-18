@@ -384,7 +384,7 @@ struct FailOp : public LEESAUnaryFunction<Kind>, OpBase, _StrategyBase
       throw LEESA::LEESAException<argument_type> ("FailOp: ");      
       return k;
     }
-    void operator ()(argument_kind const & k)
+    void operator ()(argument_kind const &)
     {
       throw LEESA::LEESAException<argument_type> ("FailOp: ");      
     }

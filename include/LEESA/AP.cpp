@@ -83,7 +83,7 @@ protected:
       : retval_(r) {}
 
     template <class K>
-    void operator () (K const & arg)
+    void operator () (K const &)
     {
       /* For any type other than result_type and result_kind, simply neglect
        * the argument. Noop. For desired types, push them in the retval. */

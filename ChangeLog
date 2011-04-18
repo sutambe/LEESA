@@ -1,3 +1,12 @@
+Mon Apr 18 07:16:47 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * include/LEESA/AP.cpp:
+        * include/LEESA/SP.cpp:
+
+        * tests/library-xsd/library-10.0.vcxproj:
+		
+		  Removed unused parameters.
+
 Fri Apr 15 07:35:58 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/LEESA.cpp:
@@ -5,8 +14,8 @@ Fri Apr 15 07:35:58 UTC 2011  Sumant Tambe  <sutambe@nospam>
         * tests/library-xsd/driver.cxx:
         * tests/library-xsd/library-10.0.vcxproj:
         * tests/library-xsd/lxml-perf.py:
-		
-		Added examples in the driver and fixed bugs in LEESA.cpp
+
+                Added examples in the driver and fixed bugs in LEESA.cpp
 
 Sun Feb 27 21:34:21 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
