@@ -152,7 +152,7 @@ get_author_names_level_descendants_of (catalog & c)
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
 
-    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, name())
                            >> Select(name(), comparator));
 
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
@@ -162,7 +162,7 @@ get_author_names_level_descendants_of (catalog & c)
                            >> Select(name(), boost::bind(std::equal_to<std::string>(), _1, "Leo Tolstoy")));
 #ifdef LEESA_SUPPORTS_LAMBDA
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
-                           >> Select(name(), [](const library::name & n) mutable { return n=="Leo Tolstoy"; }));
+                           >> Select(name(), [](const library::name & n) { return n=="Leo Tolstoy"; }));
 #endif 
 
 #endif 

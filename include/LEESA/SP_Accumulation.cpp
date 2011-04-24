@@ -108,10 +108,8 @@ public:
   typedef ChainExpr<Ancestor, LevelDescendantsOp> expression_type;
   typedef LEESAUnaryFunction <Ancestor, Descendant> Super;
   SUPER_TYPEDEFS(Super);
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
-  BOOST_CONCEPT_ASSERT((LEESA::DescendantKindConcept<argument_kind, result_kind>));
-  BOOST_CONCEPT_ASSERT((LEESA::LevelDescendantKindConcept<argument_kind, result_kind, SkipCount, Custom>));
+  
+  LEESA_ASSERT((LEESA::LevelDescendantKindConcept<argument_kind, result_kind, SkipCount, Custom>));  
 
   explicit LevelDescendantsOp () {}
 
@@ -144,14 +142,14 @@ struct Star
         return;
 
       typedef typename KindTraits<Kind, Custom>::ChildrenKinds Children;
-      this->template dispatch<Kind, Children>(arg, Children());
+      this->template dispatch<Kind, Children>(arg, static_cast<Children *>(0));
     }
 
   protected:
     // Called when ChildrenVector is non-empty. 
     template <class Kind, class ChildrenVector>
     typename disable_if<empty<ChildrenVector>, void>::type 
-    dispatch(typename ET<Kind>::argument_type const & arg, ChildrenVector)
+    dispatch(typename ET<Kind>::argument_type const & arg, ChildrenVector *)
     {
       typedef typename ET<Kind>::argument_kind argument_kind;
       typedef typename ET<Kind>::argument_type argument_type;
@@ -163,12 +161,12 @@ struct Star
 
       Strategy strategy(store_);
       strategy.template apply<Head>(gcop(arg));
-      this->template dispatch<Kind, Tail>(arg, Tail());
+      this->template dispatch<Kind, Tail>(arg, static_cast<Tail *>(0));
     }
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
     template <class Kind, class ChildrenVector>
     typename enable_if_c<empty<ChildrenVector>::value, void>::type 
-    dispatch(typename ET<Kind>::argument_type const &, ChildrenVector) { }
+    dispatch(typename ET<Kind>::argument_type const &, ChildrenVector *) { }
 };
 
 
@@ -178,8 +176,6 @@ LevelDescendantsOp <typename ET<Ancestor>::argument_type,                       
                     typename ET<Descendant>::result_type, x>                                     \
 LevelDescendantsOf(Ancestor, __VA_ARGS__, Descendant)                                            \
 {                                                                                                \
-  BOOST_CONCEPT_ASSERT((LEESA::DescendantKindConcept<Ancestor, Descendant, LEESA::Default>));    \
-                                                                                                 \
   typedef typename ET<Ancestor>::argument_type argument_type;                                    \
   typedef typename ET<Descendant>::result_type result_type;                                      \
                                                                                                  \
@@ -191,8 +187,6 @@ LevelDescendantsOp <typename ET<Ancestor>::argument_type,                       
                     typename ET<Descendant>::result_type, x, Custom>                             \
 LevelDescendantsOf(Ancestor, __VA_ARGS__, Descendant, Custom)                                    \
 {                                                                                                \
-  BOOST_CONCEPT_ASSERT((LEESA::DescendantKindConcept<Ancestor, Descendant, Custom>));            \
-                                                                                                 \
   typedef typename ET<Ancestor>::argument_type argument_type;                                    \
   typedef typename ET<Descendant>::result_type result_type;                                      \
                                                                                                  \

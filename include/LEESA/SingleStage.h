@@ -67,7 +67,7 @@ operator >> (Carrier<ParentKind> && cpk, ChildKind const & ck)
 operator >> (Carrier<ParentKind> & cpk, ChildKind const & ck)
 #endif // LEESA_SUPPORTS_RVALUE_REF
 {
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<ParentKind, ChildKind>));
+  LEESA_ASSERT((LEESA::ParentChildConcept<ParentKind, ChildKind>));
   Carrier<ChildKind> retval;
   BOOST_FOREACH(typename Carrier<ParentKind>::reference parent, cpk)
   {
@@ -98,7 +98,7 @@ typename
                      const Carrier<ChildKind> >::type
 operator >> (Carrier<ParentKind> const & cpk, ChildKind const & ck)
 {
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<ParentKind, ChildKind>));
+  LEESA_ASSERT((LEESA::ParentChildConcept<ParentKind, ChildKind>));
   Carrier<ChildKind> retval;
   BOOST_FOREACH(typename Carrier<ParentKind>::reference parent, cpk)
   {
@@ -126,7 +126,7 @@ operator >> (Carrier<Kind> && ck, SchemaVisitor & v)
 operator >> (Carrier<Kind> & ck, SchemaVisitor & v)
 #endif // LEESA_SUPPORTS_RVALUE_REF
 {
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
   BOOST_FOREACH(typename Carrier<Kind>::reference kind, ck)
   {
 #ifdef LEESA_FOR_UDM

@@ -12,42 +12,43 @@
 #include <boost/mpl/logical.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits.hpp>
+#include <boost/static_assert.hpp>
 
 #include <set>
 
  
-#define FUNCTIONS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(OP)                  \
-  template <class X, class Y, class Z>                                      \
-  OP##Op<X, Y, Z>                                                           \
-  OP (X, Y const & y, Z) {                                                  \
-    typedef typename ET<X>::argument_kind argument_kind;                    \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind, Z>));     \
-    return OP##Op<X, Y, Z> (y);                                             \
-  }                                                                         \
-  template <class X, class Y>                                               \
-  OP##Op<X, Y, Default>                                                     \
-  OP (X, Y const & y)  {                                                    \
-    typedef typename ET<X>::argument_kind argument_kind;                    \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));        \
-    return OP##Op<X, Y, LEESA::Default> (y);                                \
+#define FUNCTIONS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(OP)                       \
+  template <class X, class Y, class Z>                                           \
+  OP##Op<X, Y, Z>                                                                \
+  OP (X, Y const & y, Z) {                                                       \
+    typedef typename ET<X>::argument_kind argument_kind;                         \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind, Z>));                  \
+    return OP##Op<X, Y, Z> (y);                                                  \
+  }                                                                              \
+  template <class X, class Y>                                                    \
+  OP##Op<X, Y, Default>                                                          \
+  OP (X, Y const & y)  {                                                         \
+    typedef typename ET<X>::argument_kind argument_kind;                         \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));                     \
+    return OP##Op<X, Y, LEESA::Default> (y);                                     \
   }
 
 /**********************************************************************************/
 
-#define FUNCTIONS_FOR_SP_OP_WITH_2CUSTOMIZABLE_STRATEGIES(OP)               \
-  template <class W, class X, class Y, class Z>                             \
-  OP##Op<W, X, Y, Z>                                                        \
-  OP (W, X const &x, Y const & y, Z) {                                      \
-    typedef typename ET<W>::argument_kind argument_kind;                    \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind, Z>));     \
-    return OP##Op<W, X, Y, Z> (x, y);                                       \
-  }                                                                         \
-  template <class W, class X, class Y>                                      \
-  OP##Op<W, X, Y, Default>                                                  \
-  OP (W, X const &x, Y const & y)  {                                        \
-    typedef typename ET<W>::argument_kind argument_kind;                    \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));        \
-    return OP##Op<W, X, Y, LEESA::Default> (x, y);                          \
+#define FUNCTIONS_FOR_SP_OP_WITH_2CUSTOMIZABLE_STRATEGIES(OP)                 \
+  template <class W, class X, class Y, class Z>                               \
+  OP##Op<W, X, Y, Z>                                                          \
+  OP (W, X const &x, Y const & y, Z) {                                        \
+    typedef typename ET<W>::argument_kind argument_kind;                      \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind, Z>));               \
+    return OP##Op<W, X, Y, Z> (x, y);                                         \
+  }                                                                           \
+  template <class W, class X, class Y>                                        \
+  OP##Op<W, X, Y, Default>                                                    \
+  OP (W, X const &x, Y const & y)  {                                          \
+    typedef typename ET<W>::argument_kind argument_kind;                      \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));                  \
+    return OP##Op<W, X, Y, LEESA::Default> (x, y);                            \
   }
 
 /**********************************************************************************/
@@ -57,7 +58,7 @@
   OP##Op<typename ET<K>::argument_type, Strategy1, Strategy2>                     \
   OP (K, Strategy1 const & s1, Strategy2 const & s2) {                            \
     typedef typename ET<K>::argument_kind argument_kind;                          \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));              \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));                      \
     return OP##Op<typename ET<K>::argument_type, Strategy1, Strategy2> (s1, s2);  \
 }  
 
@@ -68,7 +69,7 @@
   OP##Op<typename ET<K>::argument_type, Strategy>                                 \
   OP (K, Strategy const & s) {                                                    \
     typedef typename ET<K>::argument_kind argument_kind;                          \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));              \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));                      \
     return OP##Op<typename ET<K>::argument_type, Strategy> (s);                   \
 }  
 
@@ -83,7 +84,7 @@ struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase                   
     typedef ChainExpr<K, OP##Op> expression_type;                                  \
     typedef LEESAUnaryFunction <K> Super;                                          \
     SUPER_TYPEDEFS(Super);                                                         \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));       \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));               \
                                                                                    \
     template <class U>                                                             \
     struct rebind                                                                  \
@@ -122,7 +123,7 @@ struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase                \
   typedef ChainExpr<K, OP##Op> expression_type;                              \
   typedef LEESAUnaryFunction <K> Super;                                      \
   SUPER_TYPEDEFS(Super);                                                     \
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));   \
+  LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));           \
                                                                              \
   template <class U>                                                         \
   struct rebind                                                              \
@@ -159,12 +160,12 @@ struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase                \
 template <class K,                                                           \
           class Strategy1 = Carrier<K>,                                      \
           class Strategy2 = Carrier<K> >                                     \
-struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase        \
+struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase                \
 {                                                                            \
   typedef ChainExpr<K, OP##Op> expression_type;                              \
   typedef LEESAUnaryFunction <K> Super;                                      \
   SUPER_TYPEDEFS(Super);                                                     \
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));           \
+  LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));                   \
                                                                              \
   template <class U>                                                         \
   struct rebind                                                              \
@@ -203,7 +204,7 @@ struct OP##Op : LEESAUnaryFunction <K>, OpBase, _StrategyBase               \
     typedef ChainExpr<K, OP##Op> expression_type;                           \
     typedef LEESAUnaryFunction <K> Super;                                   \
     SUPER_TYPEDEFS(Super);                                                  \
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));        \
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));                \
                                                                             \
     template <class U>                                                      \
     struct rebind                                                           \
@@ -366,7 +367,7 @@ struct FailOp : public LEESAUnaryFunction<Kind>, OpBase, _StrategyBase
     typedef ChainExpr<Kind, FailOp> expression_type;
     typedef LEESAUnaryFunction <Kind> Super;
     SUPER_TYPEDEFS(Super);
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));
+    LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));
 
     template <class U>
     struct rebind
@@ -438,7 +439,7 @@ template <class T, class H, class Custom>
 struct KindTraits <T, FilterChildrenIfNotDescendantCarry <H, Custom> >
   : public KindTraits<T, Custom>
 {
-    BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<T>));
+    LEESA_ASSERT((LEESA::DomainKindConcept<T>));
     /* Pipes-and-filter architecture of meta-programs is in action here.
      * If Custom is anything different from LEESA::Default, ChildrenKinds
      * are obtained from that specialization of KindTraits. For exmaple,
@@ -495,7 +496,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
   typedef ChainExpr<K, OneOp> expression_type;                         
   typedef LEESAUnaryFunction <K> Super;
   SUPER_TYPEDEFS(Super);
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));
   
   template <class U>
   struct rebind
@@ -545,7 +546,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
     success_ = false;
     BOOST_FOREACH(Udm::Object o, objects)
     {
-      dispatch(o, Children());
+      dispatch(o, static_cast<Children *>(0));
     }
     if(!success_) 
       throw LEESAException<argument_type>();
@@ -555,7 +556,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
     // Called when ChildrenVector is non-empty. 
     template <class ChildrenVector>
     typename disable_if<empty<ChildrenVector>, void>::type 
-    dispatch(Udm::Object o, ChildrenVector)
+    dispatch(Udm::Object o, ChildrenVector *)
     {
       typedef typename front<ChildrenVector>::type Head;
       typedef typename pop_front<ChildrenVector>::type Tail;
@@ -572,18 +573,18 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
         }
       }
       else
-        dispatch(o, Tail());
+        dispatch(o, static_cast<Tail *>(0));
     }
 #ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
-    void dispatch(Udm::Object, EmptyMPLVector0) { }
+    void dispatch(Udm::Object, EmptyMPLVector0 *) { }
 #endif
     
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
     // empty vector is either (1) exactly same as EmptyMPLVector0
     // or (2) convertible to EmptyMPLVector0. 
-    void dispatch(Udm::Object, EmptyMPLVector) { }
+    void dispatch(Udm::Object, EmptyMPLVector *) { }
 
 #else
 
@@ -591,7 +592,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
   {
     typedef typename KindTraits<argument_kind, Custom>::ChildrenKinds Children;
     success_ = false;
-    dispatch(arg, Children());
+    dispatch(arg, static_cast<Children *>(0));
     if(!success_) 
       throw LEESAException<argument_type>();
   }
@@ -600,7 +601,7 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
     // Called when ChildrenVector is non-empty. 
     template <class ChildrenVector>
     typename disable_if<empty<ChildrenVector>, void>::type 
-    dispatch(argument_kind const & arg, ChildrenVector)
+    dispatch(argument_kind const & arg, ChildrenVector *)
     {
       typedef typename front<ChildrenVector>::type Head;
       typedef typename pop_front<ChildrenVector>::type Tail;
@@ -619,18 +620,18 @@ struct OneOp : LEESAUnaryFunction <K>, OpBase, _StrategyBase
         }
       }
       if(!success_)
-        dispatch(arg, Tail());
+        dispatch(arg, static_cast<Tail *>(0));
     }
 #ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
-    void dispatch(argument_kind const &,  EmptyMPLVector0) { }
+    void dispatch(argument_kind const &,  EmptyMPLVector0 *) { }
 #endif
     
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
     // empty vector is either (1) exactly same as EmptyMPLVector0
     // or (2) convertible to EmptyMPLVector0. 
-    void dispatch(argument_kind const &, EmptyMPLVector) { }
+    void dispatch(argument_kind const &, EmptyMPLVector *) { }
 
 #endif // LEESA_FOR_UDM
 };
@@ -653,7 +654,7 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       ObjectSet objects = Custom::GetChildObjects(arg);
       BOOST_FOREACH(Udm::Object o, objects)
       {
-        dispatch(o, Children());
+        dispatch(o, static_cast<Children *>(0));
       }
     }
 
@@ -661,7 +662,7 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
     // Called when ChildrenVector is non-empty. 
     template <class ChildrenVector>
     typename disable_if<empty<ChildrenVector>, void>::type 
-    dispatch(Udm::Object o, ChildrenVector)
+    dispatch(Udm::Object o, ChildrenVector *)
     {
       typedef typename front<ChildrenVector>::type Head;
       typedef typename pop_front<ChildrenVector>::type Tail;
@@ -673,18 +674,18 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
         hs(arg);
       }
       else
-        dispatch(o, Tail());
+        dispatch(o, static_cast<Tail *>(0));
     }
 #ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
-    void dispatch(Udm::Object, EmptyMPLVector0) { }
+    void dispatch(Udm::Object, EmptyMPLVector0 *) { }
 #endif
 
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
     // empty vector is either (1) exactly same as EmptyMPLVector0
     // or (2) convertible to EmptyMPLVector0. 
-    void dispatch(Udm::Object, EmptyMPLVector) { }
+    void dispatch(Udm::Object, EmptyMPLVector *) { }
 };
 
 #else
@@ -702,14 +703,14 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
        * */
 
       typedef typename KindTraits<argument_kind, Custom>::ChildrenKinds Children;
-      dispatch(arg, Children());
+      dispatch(arg, static_cast<Children *>(0));
     }
 
   protected:
     // Called when ChildrenVector is non-empty. 
     template <class ChildrenVector>
     typename disable_if<empty<ChildrenVector>, void>::type 
-    dispatch(argument_kind const & arg, ChildrenVector)
+    dispatch(argument_kind const & arg, ChildrenVector *)
     {
       typedef typename front<ChildrenVector>::type Head;
       typedef typename pop_front<ChildrenVector>::type Tail;
@@ -723,18 +724,18 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(All);
       {
         hs(h);
       }
-      dispatch(arg, Tail());
+      dispatch(arg, static_cast<Tail *>(0));
     }
 #ifndef LEESA_SUPPORTS_VARIADIC_TEMPLATES
     // Called when ChildrenVector is empty as in EmptyMPLVector0.
-    void dispatch(argument_kind const &, EmptyMPLVector0) { }
+    void dispatch(argument_kind const &, EmptyMPLVector0 *) { }
 #endif
 
     // Called when ChildrenVector is empty as in EmptyMPLVector.
     // I think the following function is unnecessary because 
     // empty vector is either (1) exactly same as EmptyMPLVector0
     // or (2) convertible to EmptyMPLVector0. 
-    void dispatch(argument_kind const &, EmptyMPLVector) { }
+    void dispatch(argument_kind const &, EmptyMPLVector *) { }
 };
 
 #endif // LEESA_FOR_UDM
@@ -749,7 +750,7 @@ struct AllGraphOp : public AllOp<K, Strategy, Custom>
   typedef ChainExpr<K, AllGraphOp> expression_type;
   typedef AllOp<K, Strategy, Custom> Super;
   SUPER_TYPEDEFS(Super);
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind, Custom>));
 
   template <class U>
   struct rebind
@@ -784,7 +785,7 @@ struct AllGraphOp : public AllOp<K, Strategy, Custom>
       ObjectSet::iterator iter = LEESA::VISITED.find(o);
       if (iter == LEESA::VISITED.end()) // visit if not visited already.
       {
-        Super::dispatch(o, Children());
+        Super::dispatch(o, static_cast<Children *>(0));
       }
     }
   }
@@ -920,8 +921,8 @@ CLASS_FOR_SP_OP_WITH_CUSTOMIZABLE_STRATEGY(Innermost);
   typedef typename ET<Strategy1>::argument_kind s1_kind;
   typedef typename ET<Strategy2>::argument_kind s2_kind;
 
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<argument_kind, s1_kind>));
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<argument_kind, s2_kind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<argument_kind, s1_kind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<argument_kind, s2_kind>));
 */
 
 class VisitStrategy : public _StrategyBase
@@ -942,7 +943,7 @@ class VisitStrategy : public _StrategyBase
     template <class Kind>
     void operator ()(Kind const & k)
     {
-      BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+      LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
 #ifdef LEESA_FOR_UDM
       Kind temp = k;
       temp.Accept(visitor_);
@@ -959,7 +960,7 @@ class VisitStrategy : public _StrategyBase
     operator ()(typename ET<Kind>::result_type const & carrier)
 #endif
     {
-      BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+      LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
       BOOST_FOREACH(Kind & kind, carrier)
       {
         (*this)(kind);
@@ -990,7 +991,7 @@ class LeaveStrategy : public _StrategyBase
     template <class Kind>
     void operator ()(Kind const & k)
     {
-      BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+      LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
 #ifdef LEESA_FOR_UDM
       Kind temp = k;
       temp.Leave(visitor_);
@@ -1007,7 +1008,7 @@ class LeaveStrategy : public _StrategyBase
     operator ()(typename ET<Kind>::result_type const & carrier)
 #endif
     {
-      BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+      LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
       BOOST_FOREACH(Kind & kind, carrier)
       {
         (*this)(kind);
@@ -1029,7 +1030,7 @@ Call (E, Func f)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   //BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename function_traits<Func>::argument_type>));
   
   return CallerOp<typename ET<E>::result_type, Func> (f);
@@ -1042,7 +1043,7 @@ Call (E, Result (*f) (Arg))
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<Arg, result_kind>));
   
   CallerOp<typename ET<E>::result_type, 
@@ -1056,7 +1057,7 @@ FailOp<typename ET<K>::argument_type>
 Fail (K) 
 {
   typedef typename ET<K>::argument_kind argument_kind;
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));
   FailOp<typename ET<K>::argument_type> f;
   return f;
 }  
@@ -1066,7 +1067,7 @@ Carrier<typename ET<K>::argument_kind>
 Identity (K) 
 {
   typedef typename ET<K>::argument_kind argument_kind;
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<argument_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<argument_kind>));
   Carrier<argument_kind> k;
   return k;
 }  

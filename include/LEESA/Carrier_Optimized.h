@@ -136,7 +136,7 @@ class Carrier : public std::unary_function<Carrier<Kind>, Carrier<Kind> >
 public:
   
   BOOST_CLASS_REQUIRE(Kind, LEESA, DomainKindConcept);
-  BOOST_MPL_ASSERT((LEESA::DomainKindConcept<Kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
   // This is an important concept. Don't remove.
 
   typedef Carrier<Kind> expression_type;

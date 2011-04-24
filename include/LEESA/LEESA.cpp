@@ -96,9 +96,9 @@ struct ChainExpr : LEESAUnaryFunction <L, R>
   SUPER_TYPEDEFS(Super);
   typedef ChainExpr<L, R> expression_type;
 
-  BOOST_CONCEPT_ASSERT((LEESA::ConvertibleDomainKindsConcept
-                        <typename ET<L>::result_kind, 
-                         typename ET<R>::argument_kind>));
+  LEESA_ASSERT((LEESA::ConvertibleDomainKindsConcept
+                <typename ET<L>::result_kind, 
+                 typename ET<R>::argument_kind>));
 
   L l_;
   R r_;
@@ -122,7 +122,7 @@ struct SequenceExpr : public LEESAUnaryFunction <L, typename ET<L>::argument_typ
   SUPER_TYPEDEFS(Super);
   typedef SequenceExpr<L, R> expression_type;
   typedef typename ET<R>::argument_kind child_kind;
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<argument_kind, child_kind>));
+  LEESA_ASSERT((LEESA::ParentChildConcept<argument_kind, child_kind>));
 
   L l_;
   R r_;
@@ -227,8 +227,7 @@ evaluate (Para & p, Expr e)
   typedef typename boost::remove_const<Para>::type Parameter;
   typedef typename ET<Expr>::argument_kind argument_kind;
   typedef typename ET<Parameter>::result_kind result_kind;
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<argument_kind, result_kind> ));
-  BOOST_MPL_ASSERT((LEESA::SameKindsConcept<argument_kind, result_kind> ));
+  LEESA_ASSERT((LEESA::SameKindsConcept<argument_kind, result_kind> ));
 
   return e(p);
 }

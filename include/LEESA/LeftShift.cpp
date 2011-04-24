@@ -1,4 +1,3 @@
-
 namespace LEESA {
 
 #ifdef LEESA_FOR_UDM
@@ -22,7 +21,7 @@ operator << (L const &l, H const & h)
   typedef typename ET<L>::result_kind ChildKind;
   typedef ChainExpr<ChildKindExpr, GPOp> ChainExpr;
 
-  BOOST_CONCEPT_ASSERT((LEESA::ChildToParentConcept <ChildKind, ParentKind>));
+  LEESA_ASSERT((LEESA::ChildToParentConcept <ChildKind, ParentKind>));
 
   GPOp gpop(h);
   return ChainExpr(ChildKindExpr(l), gpop);
@@ -47,7 +46,7 @@ operator <<= (L const &l, H const & h)
   typedef typename ET<L>::result_kind ChildKind;
   typedef ChainExpr<ChildKindExpr, GPOp> ChainExpr;
 
-  BOOST_CONCEPT_ASSERT((LEESA::ChildToParentConcept <ChildKind, ParentKind>));
+  LEESA_ASSERT((LEESA::ChildToParentConcept <ChildKind, ParentKind>));
 
   GPOp gpop(h);
   return ChainExpr(ChildKindExpr(l), gpop);
@@ -62,7 +61,7 @@ typename disable_if_c<
 operator << (L const &l, OP op)
 {
   LOCAL_TYPEDEFS(L, OP);
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<ParentKind, ChildKind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<ParentKind, ChildKind>));
   return ChainExpr(ParentKindExpr(l), op);                   
 }
 
@@ -79,7 +78,7 @@ typename disable_if_c <
            > >::type
 operator <<= (Carrier<LKind> const & k, VisitorAsIndex<R> const & vi)
 {
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<LKind, R>)); 
+  LEESA_ASSERT((LEESA::SameKindsConcept<LKind, R>)); 
 
   return k <<= R() >> vi.getVisitor();
 }
@@ -95,7 +94,7 @@ typename disable_if_c <
            > >::type
 operator <<= (Carrier<LKind> const & k, R const & r)
 {
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<LKind, typename ET<R>::argument_kind>)); 
+  LEESA_ASSERT((LEESA::SameKindsConcept<LKind, typename ET<R>::argument_kind>)); 
 
   typedef typename ET<LKind>::result_type LResult;
   typedef typename ET<R>::argument_type RArg;
@@ -123,7 +122,7 @@ operator <<= (VisitorAsIndex<L> vl, VisitorAsIndex<R> vr)
 {
   typedef typename ET<R>::result_kind ParentKind;
   typedef typename ET<L>::argument_kind ChildKind;
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept <ParentKind,ChildKind>));
+  LEESA_ASSERT((LEESA::ParentChildConcept <ParentKind,ChildKind>));
 
   return L() >> vl.getVisitor() <<= R() >> vr.getVisitor();
 }
@@ -140,7 +139,7 @@ operator << (L const &l, SchemaVisitor & v)
 
   typedef VisitorOp<typename ET<L>::result_type> OP;
   LOCAL_TYPEDEFS(L, OP);
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<ParentKind, ChildKind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<ParentKind, ChildKind>));
 
   return ChainExpr(ParentKindExpr(l), OP(v));
 }
@@ -158,7 +157,7 @@ operator << (L const &l, VisitorAsIndex<H> vi)
 {
   typedef typename ET<L>::result_kind ChildKind;
   typedef typename ET<H>::result_kind ParentKind;
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept <ParentKind, ChildKind>));
+  LEESA_ASSERT((LEESA::ParentChildConcept <ParentKind, ChildKind>));
 
   return l << H() >> vi.getVisitor();
 }
@@ -176,7 +175,7 @@ operator << (VisitorAsIndex<L> vl, VisitorAsIndex<H> vh)
 {
   typedef typename ET<H>::result_kind ParentKind;
   typedef typename ET<L>::result_kind ChildKind;
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept <ParentKind, ChildKind>));
+  LEESA_ASSERT((LEESA::ParentChildConcept <ParentKind, ChildKind>));
 
   return L() >> vl.getVisitor() << H() >> vh.getVisitor();
 }

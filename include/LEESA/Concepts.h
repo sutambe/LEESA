@@ -12,6 +12,8 @@ using boost::mpl::front;
 using boost::mpl::pop_front;
 using boost::mpl::size;
 
+#define LEESA_ASSERT(Concept)  BOOST_MPL_ASSERT(Concept)
+
 namespace LEESA 
 {
   template <class T, class Custom = Default>
@@ -19,12 +21,13 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(DomainKindConceptFailure);
     }
 
     typedef typename KindTraits<T, Custom>::MetaKind MK;
     typedef DomainKindConcept type;
-    enum { value = boost::mpl::contains<LEESA::MetaTagList, MK>::value }; 
+    enum { value = boost::mpl::contains<LEESA::MetaTagList, MK>::value } ; 
+    static const bool DomainKindConceptFailure = value;
   };
 
   template <class L, class H, class Custom = Default>
@@ -32,7 +35,7 @@ namespace LEESA
   {    
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(SameKindsConceptFailure);
     }
     
     typedef SameKindsConcept type;
@@ -41,6 +44,7 @@ namespace LEESA
                    boost::is_same<L, H>::value &&  
                    boost::is_same<typename KindTraits<L, Custom>::MetaKind, 
                                   typename KindTraits<H, Custom>::MetaKind>::value }; 
+    static const bool SameKindsConceptFailure = value;
   };
 
   template <class L, class H, class Custom = Default>
@@ -48,13 +52,14 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(ConvertibleDomainKindsConceptFailure);
     }
     
     typedef ConvertibleDomainKindsConcept type;
     enum { value = DomainKindConcept<L, Custom>::value &&
                    DomainKindConcept<H, Custom>::value && 
                    boost::is_convertible<L, H>::value }; 
+    static const bool ConvertibleDomainKindsConceptFailure = value;
   };
 
 #ifdef LEESA_SUPPORTS_VARIADIC_TEMPLATES 
@@ -73,7 +78,7 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(ParentChildConceptFailure);
     }
 
     typedef typename KindTraits<ParentKind, Custom>::ChildrenKinds Children;
@@ -85,6 +90,7 @@ namespace LEESA
                     boost::mpl::count_if <Children, 
                                           IsBaseOf<ChildKind>::template inner 
                                          >::value)    }; 
+    static const bool ParentChildConceptFailure = value;
   };
 #else
   template <class ParentKind, class ChildKind, class Custom = Default>
@@ -92,7 +98,7 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(ParentChildConceptFailure);
     }
 
     typedef typename KindTraits<ParentKind, Custom>::ChildrenKinds Children;
@@ -105,6 +111,7 @@ namespace LEESA
                                           boost::is_base_of <boost::mpl::placeholders::_1, 
                                                              ChildKind> 
                                          >::value)    }; 
+    static const bool ParentChildConceptFailure = value;
   };
 #endif // LEESA_SUPPORTS_VARIADIC_TEMPLATES
 
@@ -113,7 +120,7 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(ChildToParentConceptFailure);
     }
 
     typedef typename KindTraits<ChildKind, Custom>::ParentKinds ParentKinds;
@@ -121,6 +128,7 @@ namespace LEESA
     enum { value = DomainKindConcept<ParentKind, Custom>::value &&
                    DomainKindConcept<ChildKind, Custom>::value && 
                    boost::mpl::contains<ParentKinds, ParentKind>::value }; 
+    static const bool ChildToParentConceptFailure = value;
   };
 
   template <class ParentKind, class DescendantKind, class Custom = Default>
@@ -128,7 +136,7 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(DescendantKindConceptFailure);
     }
 
     typedef DescendantKindConcept type;
@@ -136,6 +144,7 @@ namespace LEESA
             DomainKindConcept<ParentKind, Custom>::value &&
             DomainKindConcept<DescendantKind, Custom>::value && 
             IsDescendantKind<ParentKind, DescendantKind, Custom>::value }; 
+    static const bool DescendantKindConceptFailure = value;
   };
 
   template <class ParentKind, class DescendantKind, unsigned int SkipCount, class Custom> struct CheckExists;
@@ -189,7 +198,7 @@ namespace LEESA
   {
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(LevelDescendantKindConceptFailure);
     }
 
     typedef LevelDescendantKindConcept type;
@@ -198,6 +207,7 @@ namespace LEESA
             DomainKindConcept<DescendantKind, Custom>::value &&
             IsDescendantKind<ParentKind, DescendantKind, Custom>::value &&
             CheckExists<ParentKind, DescendantKind, SkipCount, Custom>::value }; 
+    static const bool LevelDescendantKindConceptFailure = value;
   };
 
 /*
@@ -207,7 +217,7 @@ namespace LEESA
 
     void constraints()
     {
-      BOOST_MPL_ASSERT_RELATION( value, !=, 0 );
+      BOOST_STATIC_ASSERT(value);
     }
 
     typedef ReachableConcept type;

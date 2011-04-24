@@ -18,7 +18,7 @@ struct DFSOp : LEESAUnaryFunction <typename ET<LExpr>::result_type,
   typedef typename ET<LExpr>::result_kind LKind;
   typedef typename ET<RExpr>::argument_kind RKind;
 
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<LKind, RKind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<LKind, RKind>));
 
   RExpr expr_;
   
@@ -100,7 +100,7 @@ struct GetChildrenOp :
 
   result_type operator () (argument_type const & arg)
   {
-    BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
+    LEESA_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
     /* Do not refactor this code with the function below, even though the
      * refactoing of the loop is obvious. The carrier data structure is
      * optimized for this loop and can't beat its performance. Only rvalue
@@ -124,7 +124,7 @@ struct GetChildrenOp :
 
   result_type operator () (argument_kind const & kind)
   {
-    BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
+    LEESA_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
 
     result_type retval;
 #ifdef LEESA_FOR_UDM
@@ -139,7 +139,7 @@ struct GetChildrenOp :
 #ifdef LEESA_SUPPORTS_RVALUE_REF  
   result_type operator () (argument_type && arg)
   {
-    BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
+    LEESA_ASSERT((LEESA::ParentChildConcept<argument_kind, result_kind>));
 
     result_type retval;
     BOOST_FOREACH(argument_kind & kind, arg)
@@ -470,7 +470,7 @@ struct GetParentOp :
   
   result_type operator () (argument_type const & arg)
   {
-    BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<result_kind, argument_kind>));
+    LEESA_ASSERT((LEESA::ParentChildConcept<result_kind, argument_kind>));
 
     result_type retval;
     typename KindTraits<argument_kind>::Container v = arg;
@@ -585,7 +585,7 @@ struct AssociationEndOp : LEESAUnaryFunction <TARGETCLASS,RESULT>,
 template <class Kind, class Tuple>
 struct Concept_Violation_If_Not_Child
 {
-  BOOST_CONCEPT_ASSERT((LEESA::ParentChildConcept<Kind, typename Tuple::head_type>));  
+  LEESA_ASSERT((LEESA::ParentChildConcept<Kind, typename Tuple::head_type>));  
   typedef typename Concept_Violation_If_Not_Child<Kind, typename Tuple::tail_type>::type type;
 };
 
@@ -805,12 +805,12 @@ struct MembersAsTupleOp
   result_type operator () (argument_type const & arg)
   {
     Transposer<Tuple> th;
-    push_children(arg, th, Tuple());
+    push_children(arg, th, static_cast<Tuple *>(0));
     return th.get_transpose();
   }
 
   template <class ShrinkingTuple>
-  void push_children(argument_type const & arg, Transposer<Tuple> & th, ShrinkingTuple)
+  void push_children(argument_type const & arg, Transposer<Tuple> & th, ShrinkingTuple *)
   {
     typedef typename ShrinkingTuple::head_type Head;
     typedef typename ET<Head>::result_type result_type;
@@ -818,10 +818,10 @@ struct MembersAsTupleOp
     const result_type dummy;
     GetChildrenOp <argument_type, result_type> gcop(dummy);
     th.add(gcop(arg));
-    push_children(arg, th, Tail());
+    push_children(arg, th, static_cast<Tail *>(0));
   }
 
-  void push_children(argument_type const &, Transposer<Tuple> &, boost::tuples::null_type)
+  void push_children(argument_type const &, Transposer<Tuple> &, boost::tuples::null_type *)
   {  }
 };
 
@@ -941,7 +941,7 @@ SelectByName (T, const char * str)
   typedef typename ET<T>::result_type result_type;
   typedef typename ET<T>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   RegexOp<result_type> regex(str);
   return regex;
 }
@@ -953,7 +953,7 @@ SelectSubSet (T const &t)
   typedef typename ET<T>::result_type result_type;
   typedef typename ET<T>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   return SelectorOp<result_type> (t);
 }
 
@@ -962,7 +962,7 @@ SelectorOp<typename ET<typename Iter::value_type>::result_type>
 SelectSubSet (Iter begin, Iter end)
 {
   typedef typename Iter::value_type Kind;
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<Kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
 
   typedef typename ET<Kind>::result_type result_type;
   typedef typename ET<Kind>::result_kind result_kind;
@@ -976,7 +976,7 @@ Select (E, Func f)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   //BOOST_MPL_ASSERT((boost::is_convertible<typename function_traits<Func>::argument_type, result_kind>));
   //BOOST_MPL_ASSERT((boost::is_convertible<typename function_traits<Func>::result_type, bool>));
   
@@ -989,7 +989,7 @@ Select (E, Result (*f) (Arg))
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<Arg, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<Result, bool>));
   
@@ -1005,7 +1005,7 @@ StoreAt (E, typename KindTraits<typename ET<E>::result_kind>::Container & c)
   typedef typename ET<E>::result_kind result_kind;
   typedef typename KindTraits<result_kind>::Container Container;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename Container::value_type>));
   
   return StoreAtOp<typename ET<E>::result_type> (c);
@@ -1017,7 +1017,7 @@ ForEach (E, Func f)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   //BOOST_MPL_ASSERT((boost::is_convertible<result_kind, typename function_traits<Func>::argument_type>));
   
   return ForEachOp<typename ET<E>::result_type, Func> (f);
@@ -1030,7 +1030,7 @@ ForEach (E, Result (*f) (Arg))
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<Arg, result_kind>));
   
   ForEachOp<typename ET<E>::result_type, 
@@ -1044,8 +1044,8 @@ CastOp<typename ET<L>::result_type,
        typename ET<H>::result_type> 
 CastFromTo (L, H)
 {
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<L>));
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<H>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<L>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<H>));
 
   typedef typename ET<L>::argument_type argument_type;
   typedef typename ET<H>::result_type result_type;
@@ -1075,7 +1075,7 @@ Sort (E, Comp c)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename Comp::first_argument_type, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename Comp::second_argument_type, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename Comp::result_type, bool>));
@@ -1089,7 +1089,7 @@ Sort (E, Result (*f) (Arg1, Arg2))
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<Arg1, result_kind>));  
   BOOST_MPL_ASSERT((boost::is_convertible<Arg2, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<Result, bool>));
@@ -1106,7 +1106,7 @@ Unique (E, BinPred c)
   typedef typename ET<E>::result_kind result_kind;
   typedef typename ET<E>::result_type result_type;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename BinPred::first_argument_type, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename BinPred::second_argument_type, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename BinPred::result_type, bool>));
@@ -1123,7 +1123,7 @@ Unique (E)
   typedef typename ET<E>::result_type result_type;
   typedef std::equal_to<result_kind> EQ;  
 
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename EQ::first_argument_type, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename EQ::second_argument_type, result_kind>));
   BOOST_MPL_ASSERT((boost::is_convertible<typename EQ::result_type, bool>));
@@ -1137,7 +1137,7 @@ Leave (E, SchemaVisitor & v)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   
   return LeaveCallerOp<typename ET<E>::result_type> (v);
 }
@@ -1148,7 +1148,7 @@ Visit (E, SchemaVisitor & v)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   
   return VisitorOp<typename ET<E>::result_type> (v);
 }
@@ -1159,7 +1159,7 @@ VisitLeave (E, SchemaVisitor & v, Func f)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   
   return PairCallerOp<typename ET<E>::result_type, Func> (v, f);
 }
@@ -1170,7 +1170,7 @@ VisitLeave (E, SchemaVisitor & v)
 {
   typedef typename ET<E>::result_kind result_kind;
   
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
   
   return PairCallerOp<typename ET<E>::result_type> (v); // Default Func is identity.
 }
@@ -1195,9 +1195,9 @@ Choice (K, C1 c1, C2 c2)
   typedef typename ET<C1>::argument_kind arg1_kind;
   typedef typename ET<C2>::argument_kind arg2_kind;
 
-  BOOST_CONCEPT_ASSERT((LEESA::DomainKindConcept<result_kind>));
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<result_kind, arg1_kind>));
-  BOOST_CONCEPT_ASSERT((LEESA::SameKindsConcept<result_kind, arg2_kind>));
+  LEESA_ASSERT((LEESA::DomainKindConcept<result_kind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<result_kind, arg1_kind>));
+  LEESA_ASSERT((LEESA::SameKindsConcept<result_kind, arg2_kind>));
   
   return ChoiceOp<typename ET<K>::result_type, C1, C2>(c1, c2);
 }
