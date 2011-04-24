@@ -1,7 +1,7 @@
 CXX=g++
 #CXX=g++45
-#CXXFLAGS=-std=c++0x -Wno-deprecated -D TEST5 -D WITH_LEESA
-CXXFLAGS=-Wno-deprecated -D TEST5 -D WITH_LEESA 
+#CXXFLAGS=-std=c++0x -Wno-deprecated -D TEST13 -D WITH_LEESA
+CXXFLAGS=-Wno-deprecated -D TEST13 -D WITH_LEESA 
 
 ifndef $(XSD_ROOT)
   XSD_INCLUDE=

@@ -152,7 +152,7 @@ get_author_names_level_descendants_of (catalog & c)
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
 
-    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
+    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, name())
                            >> Select(name(), comparator));
 
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
@@ -319,7 +319,26 @@ void membersof(catalog &c, visitor &v)
   BOOST_AUTO(v_born,  author() >> v >> born() >> v);
   BOOST_AUTO(v_title, title() >> v);
   BOOST_AUTO(members, MembersOf(book(), v_born, v_title));
-  evaluate(c, catalog() >>= book() >> members);
+  SeqType<catalog>::type catalogs;
+  catalogs.push_back(c);
+  catalogs.push_back(c);
+  
+  /* There is a critical difference in semantics between the following two evaluate
+     expressions. This example shows how to begin depth-frist traversal from the root. 
+     Note the different in the return type. */
+
+  /* The one with Identity begins depth-first traversal from catalog itself.
+     I.e., It visits one catalog and goes deeper in it and only when the specified sub-
+     tree is traversed, it goes to the next catalog. Note the return type is
+     container of catalogs. */
+  catalogs = 
+    evaluate(catalogs, Identity(catalog()) >>= catalog() >> v >>= book() >> members);
+  
+  std::cout << "*********************************************************\n";
+  /* The expression without Identity, visits all catalogs first and then begins 
+     depth-first traversal from books. Note the return type is container of books. */
+  SeqType<book>::type books = 
+    evaluate(catalogs, catalog() >> v >>= book() >> members);
 }
 
 #endif // TEST13
