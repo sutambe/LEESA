@@ -1,3 +1,11 @@
+Sun Apr 24 00:13:25 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * tests/library-xsd/Makefile:
+        * tests/library-xsd/driver.cxx:
+        * tests/library-xsd/testN.sh:
+
+          Tested schema conformance checking g++ 4.4 and g++ 4.5
+
 Sat Apr 23 23:39:56 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * include/LEESA/AP.cpp:
@@ -13,8 +21,8 @@ Sat Apr 23 23:39:56 UTC 2011  Sumant Tambe  <sutambe@nospam>
         * include/LEESA/SingleStage.h:
 
         * tests/library-xsd/library-10.0.vcxproj:
-		
-		Improved error reporting.
+
+                Improved error reporting.
 
 Mon Apr 18 07:16:47 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
