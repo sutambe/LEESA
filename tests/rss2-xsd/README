@@ -2,9 +2,9 @@
    Fedora: sudo yum install xsdcxx
    Ubuntu: sudo apt-get install xsdcxx
 
-2. Install python-dev, libxslt1-dev, libxml2-dev, doxygen, xsltproc, and libxerces-c-dev.
-   Fedora: sudo yum install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev
-   Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev
+2. Install python-dev, libxslt1-dev, libxml2-dev, doxygen, xsltproc, python-setuptools-dev, and libxerces-c-dev.
+   Fedora: sudo yum install python-devel libxslt-devel libxml2-devel doxygen xerces-c-devel python-setuptools-devel
+   Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev python-setuptools-dev
 
 3. Install lxml Python bindings.
    sudo easy_install lxml

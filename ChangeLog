@@ -1,3 +1,12 @@
+Mon May 16 09:33:27 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * tests/PICML-xsd/README
+        * tests/library-xsd/README
+        * tests/rss2-xsd/README
+        * tests/xo-impedance/README
+        * tests/G2SMessage-xsd/README
+        * tests/polymorphism-xsd/README
+
 Sun Apr 24 09:33:27 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * tests/library-xsd/driver.cxx:

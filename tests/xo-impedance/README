@@ -1,13 +1,43 @@
-1. Obtain xsd from http://www.codesynthesis.com/products/xsd/download.xhtml
-   or on Fedora 12 (or later) enter command: yum install xsdcxx
+1. Obtain xsdcxx  
+   Fedora: sudo yum install xsdcxx
+   Ubuntu: sudo apt-get install xsdcxx
+   If xsdcxx can't be installed, obtain xsdcxx from
+   http://www.codesynthesis.com/products/xsd/download.xhtml 
+   and set $XSD_ROOT to the root directory of the installation.
 
-2. Set $XSD_ROOT 
+2. Install python-dev, libxslt1-dev, libxml2-dev, doxygen, xsltproc, python-setuptools-dev, and libxerces-c-dev.
+   Fedora: sudo yum install python-devel libxslt-devel libxml2-devel doxygen xerces-c-devel python-setuptools-devel
+   Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev python-setuptools-dev
+
+3. Install lxml Python bindings.
+   sudo easy_install lxml
+
+4. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+   svn co svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA LEESA
+
+5. Set $LEESA_ROOT
+
+6. make generate
+
+7. make driver
+
+
+Windows
+=======
+
+1. Obtain xsd from http://www.codesynthesis.com/products/xsd/download.xhtml 
+   and set %XSD_ROOT% to the root directory of the installation.
+
+2. Install python, doxygen, and xsltproc.
+   Make sure they are accessible from %PATH%
 
 3. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+   svn co svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA LEESA
 
 4. Set $LEESA_ROOT
 
-5. make generate
+5. Obtain boost from boostpro.com
+   Set %BOOST_ROOT%
 
-6. make driver
+6. Use .sln file to open the projects in Visual Studio.
 
