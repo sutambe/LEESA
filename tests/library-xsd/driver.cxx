@@ -152,7 +152,7 @@ get_author_names_level_descendants_of (catalog & c)
 #ifdef WITH_LEESA  
   SeqType<name>::type name_seq = 
 
-    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, name())
+    evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
                            >> Select(name(), comparator));
 
     evaluate (c, catalog() >> LevelDescendantsOf(catalog(), _, _, name())
