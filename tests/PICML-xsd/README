@@ -5,9 +5,9 @@
    http://www.codesynthesis.com/products/xsd/download.xhtml 
    and set $XSD_ROOT to the root directory of the installation.
 
-2. Install python-dev, libxslt1-dev, libxml2-dev, doxygen, xsltproc, python-setuptools-dev, and libxerces-c-dev.
+2. Install python, libxslt, libxml2, doxygen, xsltproc, python-setuptools, and xerces-c.
    Fedora: sudo yum install python-devel libxslt-devel libxml2-devel doxygen xerces-c-devel python-setuptools-devel
-   Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev python-setuptools-dev
+   Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev python-setuptools
 
 3. Install lxml Python bindings.
    sudo easy_install lxml

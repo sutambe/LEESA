@@ -1,3 +1,14 @@
+Tue May 17 20:12:26 UTC 2011  Sumant Tambe  <sutambe@nospam>
+
+        * tests/G2SMessage-xsd/README:
+        * tests/PICML-xsd/README:
+        * tests/library-xsd/README:
+        * tests/polymorphism-xsd/README:
+        * tests/rss2-xsd/README:
+        * tests/xo-impedance/README:
+
+          Updated installation and build instructions for Ubuntu 
+
 Mon May 16 09:33:27 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * tests/PICML-xsd/README
@@ -7,14 +18,16 @@ Mon May 16 09:33:27 UTC 2011  Sumant Tambe  <sutambe@nospam>
         * tests/G2SMessage-xsd/README
         * tests/polymorphism-xsd/README
 
+          Updated installation and build instructions for Fedora 
+
 Sun Apr 24 09:33:27 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * tests/library-xsd/driver.cxx:
         * tests/library-xsd/library-10.0.vcxproj:
         * tests/library-xsd/Makefile:
-		
-		Added an example that shows depth-first visitor traversal from root.
-		Uses "Identity".
+
+                Added an example that shows depth-first visitor traversal from root.
+                Uses "Identity".
 
 Sun Apr 24 00:13:25 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
