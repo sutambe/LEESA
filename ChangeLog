@@ -1,3 +1,15 @@
+Sun Sep  4 18:58:43 CDT 2011 Sumant Tambe <sutambe@nospam>
+
+M    tests/G2SMessage-xsd/g2sMessage-meta.cxx
+M    tests/G2SMessage-xsd/g2sMessage-meta.hxx
+M    tests/G2SMessage-xsd/driver.cpp
+A    tests/G2SMessage-xsd/Makefile
+M    include/LEESA/Sequence.hpp
+M    include/LEESA/Operators.cpp
+M    bin/gen-meta.py
+
+     No duplicates in children_list and parent_list.
+
 Tue May 17 20:12:26 UTC 2011  Sumant Tambe  <sutambe@nospam>
 
         * tests/G2SMessage-xsd/README:

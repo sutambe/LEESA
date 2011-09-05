@@ -139,29 +139,22 @@ def populate_typedef_dictionary(function_dict, typedef_dict, root):
 
 
 def push_dictionary(qualified_cname, child_type):
-    length = 0
-    if(qualified_cname in children_dict):
-      length = len(children_dict[qualified_cname])
-    else:
+    if(not (qualified_cname in children_dict)):
       children_dict[qualified_cname] = []
     
-    children_dict[qualified_cname][length:] = [ child_type ]
+    if(not child_type in children_dict[qualified_cname]):
+      children_dict[qualified_cname].append(child_type)
 
     global max_length
+    max_length = max(max_length, len(children_dict[qualified_cname]))
 
-    if(max_length < len(children_dict[qualified_cname])):
-      max_length = len(children_dict[qualified_cname]) 
-
-    length = 0
-    if(child_type in parent_dict):
-      length = len(parent_dict[child_type])
-    else:
+    if(not (child_type in parent_dict)):
       parent_dict[child_type] = []
 
-    parent_dict[child_type][length:] = [ qualified_cname ]
+    if(not qualified_cname in parent_dict[child_type]):
+      (parent_dict[child_type]).append(qualified_cname)
 
-    if(max_length < len(parent_dict[child_type])):
-      max_length = len(parent_dict[child_type]) 
+    max_length = max(max_length, len(parent_dict[child_type]))
 
 
 def synthesize_function_declaration(return_type, qualified_cname, child_type, conflicting_types):
@@ -284,7 +277,7 @@ def inherit_baseclass_functions(function_dict, baseclass_dict):
 
 
 def write_header_prolog(no_visitor, max_length, namespace, orig_header_without_ext, meta_header_file):
-  guard_macro = "__" + orig_header_without_ext.upper() + "_META_HXX"
+  guard_macro = "__" + os.path.basename(orig_header_without_ext).upper() + "_META_HXX"
   outstr = """\
 #ifndef %(guard_macro)s
 #define %(guard_macro)s
@@ -332,7 +325,7 @@ namespace %(namespace)s {
 
 
 def write_header_epilog(namespace, orig_header_without_ext, meta_header_file):
-  guard_macro = "__" + orig_header_without_ext.upper() + "_META_HXX"
+  guard_macro = "__" + os.path.basename(orig_header_without_ext).upper() + "_META_HXX"
   if(namespace != ""):
     outstr = """\
 
@@ -373,6 +366,9 @@ def write_cpp_epilog (namespace, orig_header_wihtout_ext, cpp_file):
 """ % locals()
     cpp_file.write(outstr)
 
+def remove_duplicates(mylist):
+  return list(set(mylist))
+  
 
 def write_schema_traits (all_types_set, children_dict, parent_dict, meta_header_file):
   outstr = """
@@ -393,16 +389,18 @@ struct ContainerTraits
     parent_vect_len = 0
 
     if(t in children_dict):
-      children_kinds = ", ".join(children_dict[t])
-      children_vect_len = len(children_dict[t])
+      children_list = remove_duplicates(children_dict[t]) 
+      children_kinds = ", ".join(children_list)
+      children_vect_len = len(children_list)
       metakind = "LEESA::ModelMetaTag"
       #if(t in children_dict[t]): // direct recursive types
       #  sys.stdout.write("[[[" + t + "]]]\n");
 
 
     if(t in parent_dict):
-      parent_kinds = ", ".join(parent_dict[t])
-      parent_vect_len = len(parent_dict[t])
+      parent_list = remove_duplicates(parent_dict[t]) 
+      parent_kinds = ", ".join(parent_list)
+      parent_vect_len = len(parent_list)
 
     outstr = """
 template <>
@@ -704,6 +702,7 @@ try:
   import tempfile
   import shutil
   from lxml import etree
+  from collections import defaultdict
   #print("Running with lxml.etree")
 except ImportError:
   try:
@@ -829,8 +828,8 @@ print_dictionary(function_dict, "$$$$$$$$$$$$$$$$$$$$$$$$$$ Printing function di
 # Populate these two dictionaries while synthesizing data access functions.
 # It also updates the max_length that determines
 # BOOST_MPL_LIMIT_VECTOR_SIZE
-children_dict = {}
-parent_dict = {}
+children_dict = defaultdict(list)
+parent_dict = defaultdict(list)
 max_length = 0
 synthesized_function_declarations = ""
 synthesized_function_definitions = ""

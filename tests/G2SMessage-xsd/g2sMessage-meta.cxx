@@ -1,4 +1,4 @@
-#include "g2sMessage-meta.hxx"
+#include "xsd/g2sMessage-meta.hxx"
 
 namespace G2Sv1_0_3 {
 
@@ -2141,13 +2141,13 @@ children_kind(const G2Sv1_0_3::complexParameter & x, G2Sv1_0_3::complexParameter
 G2Sv1_0_3::c_complexDataType::complexParameter_sequence & 
 children_kind(G2Sv1_0_3::complexParameter & x, G2Sv1_0_3::complexParameter::complexParameter_type const *)
 {
-  //return x.complexParameter();
+  return x.complexParameter();
 }
 
 const G2Sv1_0_3::c_complexDataType::complexParameter_sequence & 
 children_kind(const G2Sv1_0_3::complexParameter & x, G2Sv1_0_3::complexParameter::complexParameter_type const *)
 {
-  //return x.complexParameter();
+  return x.complexParameter();
 }
 
 G2Sv1_0_3::c_complexDataType::paramId_type & 
@@ -3697,19 +3697,19 @@ children_kind(const G2Sv1_0_3::c_progressiveLogItem & x, G2Sv1_0_3::c_progressiv
 {
   return x.progException();
 }
-/*
+
 G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(G2Sv1_0_3::c_progressiveLogItem & x, G2Sv1_0_3::c_progressiveLogItem::deviceId_type const *)
 {
   return x.deviceId();
 }
-*//*
+
 const G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(const G2Sv1_0_3::c_progressiveLogItem & x, G2Sv1_0_3::c_progressiveLogItem::deviceId_type const *)
 {
   return x.deviceId();
 }
-*/
+
 G2Sv1_0_3::c_logClassRecord::transactionId_type & 
 children_kind(G2Sv1_0_3::c_progressiveLogItem & x, G2Sv1_0_3::c_progressiveLogItem::transactionId_type const *)
 {
@@ -5809,19 +5809,19 @@ children_kind(const G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::outcom
 {
   return x.outcome();
 }
-/*
+
 G2Sv1_0_3::c_centralLog::gamePlayId_type & 
 children_kind(G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::gamePlayId_type const *)
 {
   return x.gamePlayId();
 }
-*//*
+
 const G2Sv1_0_3::c_centralLog::gamePlayId_type & 
 children_kind(const G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::gamePlayId_type const *)
 {
   return x.gamePlayId();
 }
-*/
+
 G2Sv1_0_3::c_centralLog::themeId_type & 
 children_kind(G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::themeId_type const *)
 {
@@ -5929,13 +5929,13 @@ children_kind(const G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::outcom
 {
   return x.outcomeException();
 }
-/*
+
 G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*/
+
 const G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(const G2Sv1_0_3::c_centralLog & x, G2Sv1_0_3::c_centralLog::deviceId_type const *)
 {
@@ -13051,13 +13051,13 @@ children_kind(G2Sv1_0_3::c_printLogItem & x, G2Sv1_0_3::c_printLogItem::transact
 {
   return x.transactionDevice();
 }
-/*
+
 const G2Sv1_0_3::c_printLogItem::transactionDevice_type & 
 children_kind(const G2Sv1_0_3::c_printLogItem & x, G2Sv1_0_3::c_printLogItem::transactionDevice_type const *)
 {
   return x.transactionDevice();
 }
-*/
+
 G2Sv1_0_3::c_printLogItem::templateIndex_type & 
 children_kind(G2Sv1_0_3::c_printLogItem & x, G2Sv1_0_3::c_printLogItem::templateIndex_type const *)
 {
@@ -13081,13 +13081,13 @@ children_kind(const G2Sv1_0_3::c_printLogItem & x, G2Sv1_0_3::c_printLogItem::tr
 {
   return x.transferState();
 }
-/*
+
 G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(G2Sv1_0_3::c_printLogItem & x, G2Sv1_0_3::c_printLogItem::deviceId_type const *)
 {
   return x.deviceId();
 }
-*/
+
 const G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(const G2Sv1_0_3::c_printLogItem & x, G2Sv1_0_3::c_printLogItem::deviceId_type const *)
 {
@@ -14537,13 +14537,13 @@ children_kind(const G2Sv1_0_3::complexMeter & x, G2Sv1_0_3::complexMeter::simple
 G2Sv1_0_3::c_complexMeter::complexMeter_sequence & 
 children_kind(G2Sv1_0_3::complexMeter & x, G2Sv1_0_3::complexMeter::complexMeter_type const *)
 {
-  //return x.complexMeter();
+  return x.complexMeter();
 }
 
 const G2Sv1_0_3::c_complexMeter::complexMeter_sequence & 
 children_kind(const G2Sv1_0_3::complexMeter & x, G2Sv1_0_3::complexMeter::complexMeter_type const *)
 {
-  //return x.complexMeter();
+  return x.complexMeter();
 }
 
 G2Sv1_0_3::c_complexMeter::meterName_type & 
@@ -17041,13 +17041,13 @@ children_kind(const G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::transactionCla
 {
   return x.transactionClass();
 }
-/*
+
 G2Sv1_0_3::c_printLogItem::transactionDevice_type & 
 children_kind(G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::transactionDevice_type const *)
 {
   return x.transactionDevice();
 }
-*/
+
 const G2Sv1_0_3::c_printLogItem::transactionDevice_type & 
 children_kind(const G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::transactionDevice_type const *)
 {
@@ -17077,19 +17077,19 @@ children_kind(const G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::transferState_
 {
   return x.transferState();
 }
-/*
+
 G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*//*
+
 const G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(const G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*/
+
 G2Sv1_0_3::c_logClassRecord::transactionId_type & 
 children_kind(G2Sv1_0_3::printLog & x, G2Sv1_0_3::printLog::transactionId_type const *)
 {
@@ -19909,19 +19909,19 @@ children_kind(const G2Sv1_0_3::centralLog & x, G2Sv1_0_3::centralLog::outcomeExc
 {
   return x.outcomeException();
 }
-/*
+
 G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(G2Sv1_0_3::centralLog & x, G2Sv1_0_3::centralLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*//*
+
 const G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(const G2Sv1_0_3::centralLog & x, G2Sv1_0_3::centralLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*/
+
 G2Sv1_0_3::c_logClassRecord::transactionId_type & 
 children_kind(G2Sv1_0_3::centralLog & x, G2Sv1_0_3::centralLog::transactionId_type const *)
 {
@@ -24221,13 +24221,13 @@ children_kind(const G2Sv1_0_3::complexValue & x, G2Sv1_0_3::complexValue::boolea
 G2Sv1_0_3::c_complexValue::complexValue_sequence & 
 children_kind(G2Sv1_0_3::complexValue & x, G2Sv1_0_3::complexValue::complexValue_type const *)
 {
-  //return x.complexValue();
+  return x.complexValue();
 }
 
 const G2Sv1_0_3::c_complexValue::complexValue_sequence & 
 children_kind(const G2Sv1_0_3::complexValue & x, G2Sv1_0_3::complexValue::complexValue_type const *)
 {
-  //return x.complexValue();
+  return x.complexValue();
 }
 
 G2Sv1_0_3::c_complexValue::paramId_type & 
@@ -25297,19 +25297,19 @@ children_kind(const G2Sv1_0_3::progressiveLog & x, G2Sv1_0_3::progressiveLog::pr
 {
   return x.progException();
 }
-/*
+
 G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(G2Sv1_0_3::progressiveLog & x, G2Sv1_0_3::progressiveLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*//*
+
 const G2Sv1_0_3::c_logClassRecord::deviceId_type & 
 children_kind(const G2Sv1_0_3::progressiveLog & x, G2Sv1_0_3::progressiveLog::deviceId_type const *)
 {
   return x.deviceId();
 }
-*/
+
 G2Sv1_0_3::c_logClassRecord::transactionId_type & 
 children_kind(G2Sv1_0_3::progressiveLog & x, G2Sv1_0_3::progressiveLog::transactionId_type const *)
 {
@@ -33329,13 +33329,13 @@ children_kind(const G2Sv1_0_3::authorizeStatusList & x, G2Sv1_0_3::authorizeStat
 G2Sv1_0_3::c_cabinetDateTime::cabinetDateTime_type & 
 children_kind(G2Sv1_0_3::cabinetDateTime & x, G2Sv1_0_3::cabinetDateTime::cabinetDateTime_type const *)
 {
-  //return x.cabinetDateTime();
+  return x.cabinetDateTime();
 }
 
 const G2Sv1_0_3::c_cabinetDateTime::cabinetDateTime_type & 
 children_kind(const G2Sv1_0_3::cabinetDateTime & x, G2Sv1_0_3::cabinetDateTime::cabinetDateTime_type const *)
 {
-  //return x.cabinetDateTime();
+  return x.cabinetDateTime();
 }
 
 G2Sv1_0_3::c_setCountdownOverride::overrideId_type & 

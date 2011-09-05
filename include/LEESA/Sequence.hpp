@@ -184,7 +184,7 @@ struct count_if <vector<>, Pred>
     }
   }
 
-#endif // LEESA_MAX_MPL_VECTOR_SIZE
+#endif // LEESA_SUPPORTS_VARIADIC_TEMPLATES
 
 #include <boost/mpl/vector.hpp>
 #include <boost/mpl/front.hpp>

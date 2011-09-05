@@ -3,9 +3,9 @@
 #include <iterator>
 #include <algorithm>
 
-#include "g2sMessage.hxx"
-//#include "g2sMessage-meta.hxx"
-//#include "LEESA.h"
+#include "xsd/g2sMessage.hxx"
+#include "g2sMessage-meta.hxx"
+#include "LEESA/LEESA.h"
 
 using std::cerr;
 using std::endl;

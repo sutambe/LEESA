@@ -1131,6 +1131,8 @@ Unique (E)
   return UniqueOp<result_type, EQ>(EQ());
 }
 
+#ifndef LEESA_NO_VISITOR
+
 template <class E>
 LeaveCallerOp<typename ET<E>::result_type> 
 Leave (E, SchemaVisitor & v)
@@ -1174,6 +1176,8 @@ VisitLeave (E, SchemaVisitor & v)
   
   return PairCallerOp<typename ET<E>::result_type> (v); // Default Func is identity.
 }
+
+#endif // LEESA_NO_VISITOR
 
 #ifndef LEESA_FOR_UDM
 template <class Kind, class Tuple>
