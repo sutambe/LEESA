@@ -7,7 +7,6 @@ using boost::disable_if;
 using boost::enable_if_c;
 using boost::enable_if;
 using boost::mpl::if_;
-using boost::is_base_of;
 
 namespace LEESA {
 
@@ -16,7 +15,7 @@ struct IsVisitorAsIndexBaseOf
 {
   typedef IsVisitorAsIndexBaseOf type;
 #ifndef LEESA_NO_VISITOR
-  enum { value = is_base_of<VisitorAsIndexBase, T>::value };
+  enum { value = boost::is_base_of<VisitorAsIndexBase, T>::value };
 #else
   enum { value = 0 };
 #endif // LEESA_NO_VISITOR
@@ -27,7 +26,7 @@ struct IsDomainVisitorBaseOf
 {
   typedef IsDomainVisitorBaseOf type;
 #ifndef LEESA_NO_VISITOR
-  enum { value = is_base_of<SchemaVisitor, T>::value };
+  enum { value = boost::is_base_of<SchemaVisitor, T>::value };
 #else
   enum { value = 0 };
 #endif // LEESA_NO_VISITOR
@@ -38,7 +37,7 @@ struct IsDomainVisitorBaseOf
 
 template <class L>
 typename 
-  disable_if_c<is_base_of<std::ios_base, L>::value |
+  disable_if_c<boost::is_base_of<std::ios_base, L>::value |
                IsVisitorAsIndexBaseOf<L>::value    | 
                IsDomainVisitorBaseOf<L>::value, 
                ChainExpr<typename ET<L>::expression_type, 
@@ -55,7 +54,7 @@ operator >> (L const &l, SchemaVisitor & v)
 
 template <class L, class H>
 typename 
-  disable_if_c<is_base_of<std::ios_base, L>::value | 
+  disable_if_c<boost::is_base_of<std::ios_base, L>::value | 
                IsDomainVisitorBaseOf<L>::value |  
                IsVisitorAsIndexBaseOf<L>::value, 
                ChainExpr<ChainExpr<typename ET<L>::expression_type,
@@ -81,7 +80,7 @@ disable_if_c <IsDomainVisitorBaseOf<H>::value |
               ChainExpr<ChainExpr<typename ET<L>::expression_type, 
                                 VisitorOp<typename ET<L>::result_type> 
                                >,
-                        typename if_<is_base_of<OpBase, H>,
+                        typename if_<boost::is_base_of<OpBase, H>,
                                      H,
                                      GetChildrenOp<typename ET<L>::result_type,  
                                                    typename ET<H>::result_type>
@@ -145,7 +144,7 @@ template <class L, class R>
 typename disable_if_c <
   IsDomainVisitorBaseOf<L>::value |
   IsVisitorAsIndexBaseOf<L>::value |
-  is_base_of<OpBase,L>::value,
+  boost::is_base_of<OpBase,L>::value,
   ChainExpr<typename ET<L>::expression_type, 
             GetChildrenOp<typename ET<L>::result_type,
                           ChainExpr<typename ET<R>::expression_type, 
@@ -164,7 +163,7 @@ operator >>= (L const &l, VisitorAsIndex<R> vi)
 
 template <class L, class R>
 typename disable_if_c <
-  is_base_of <OpBase, R>::value |
+  boost::is_base_of <OpBase, R>::value |
   IsVisitorAsIndexBaseOf<R>::value,
   ChainExpr<ChainExpr<typename ET<L>::expression_type,
                       VisitorOp<typename ET<L>::result_type>
@@ -183,7 +182,7 @@ operator >>= (VisitorAsIndex<L> vi, R const &r)
 }
 
 template <class L, class Op>
-typename enable_if<is_base_of<OpBase, Op>,
+typename enable_if<boost::is_base_of<OpBase, Op>,
                    ChainExpr<ChainExpr<typename ET<L>::expression_type,
                                        VisitorOp<typename ET<L>::result_type>
                                       >,
@@ -237,7 +236,7 @@ operator >>= (VisitorAsIndex<L> vl, SequenceExpr<R,X> const &r)
 template <class LKind, class R>
 typename disable_if_c <
   IsDomainVisitorBaseOf<R>::value |
-  is_base_of<OpBase,R>::value,
+  boost::is_base_of<OpBase,R>::value,
   ChainExpr<typename ET<LKind>::result_type,
             DFSOp<typename ET<R>::argument_type,
                   ChainExpr<typename ET<R>::result_type, 
@@ -258,8 +257,8 @@ template <class L, class OP>
 typename disable_if_c<
   IsVisitorAsIndexBaseOf<L>::value |                     
   IsDomainVisitorBaseOf<L>::value |                     
-  is_base_of <std::ios_base, L>::value |
-  !is_base_of <OpBase, OP>::value,                             
+  boost::is_base_of <std::ios_base, L>::value |
+  !boost::is_base_of <OpBase, OP>::value,                             
   ChainExpr<typename ET< L >::expression_type, OP> >::type  
 /* This function supports all the operators that inherit from OpBase. */
 operator >> (L const &l, OP const & op) 
@@ -273,9 +272,9 @@ template <class L, class R>
 typename disable_if_c<
    IsDomainVisitorBaseOf<R>::value |
    IsDomainVisitorBaseOf<L>::value |
-   is_base_of<std::ios_base, L>::value |
-   is_base_of <OpBase, R>::value |
-   is_base_of <OpBase, L>::value,
+   boost::is_base_of<std::ios_base, L>::value |
+   boost::is_base_of <OpBase, R>::value |
+   boost::is_base_of <OpBase, L>::value,
    ChainExpr<typename ET<L>::expression_type, 
              GetChildrenOp<typename ET<L>::result_type, 
                            typename ET<R>::expression_type>
@@ -295,7 +294,7 @@ operator >> (L const &l, R const &r)
 
 
 template <class L, class H, class X>
-typename disable_if<is_base_of<std::ios_base, L>, 
+typename disable_if<boost::is_base_of<std::ios_base, L>, 
   ChainExpr<typename ET<L>::expression_type, 
             SequenceExpr<H,X> 
            > >::type
@@ -314,7 +313,7 @@ operator >> (L const &l, SequenceExpr<H,X> const & s)
 #ifdef LEESA_FOR_UDM
 
 template <class L, class RESULT, class TARGETCLASS>
-typename disable_if<is_base_of<std::ios_base, L>, 
+typename disable_if<boost::is_base_of<std::ios_base, L>, 
           ChainExpr<typename ET<L>::expression_type, 
                     AssociationOp<RESULT, TARGETCLASS>
           > >::type
@@ -329,7 +328,7 @@ operator >> (L const &l, Udm::AClassPointerAttr<RESULT, TARGETCLASS> (TARGETCLAS
 
 
 template <class L, class ASSOC, class SOURCECLASS, class TARGETCLASS>
-typename disable_if<is_base_of<std::ios_base, L>, 
+typename disable_if<boost::is_base_of<std::ios_base, L>, 
   ChainExpr<typename ET<L>::expression_type, 
             AssociationManyOp<ASSOC, SOURCECLASS, TARGETCLASS>
   > >::type
@@ -343,7 +342,7 @@ operator >> (L const &l, Udm::AClassAssocAttr<ASSOC, TARGETCLASS> (SOURCECLASS::
 }
 
 template <class L, class RESULT, class TARGETCLASS>
-typename disable_if<is_base_of<std::ios_base, L>, 
+typename disable_if<boost::is_base_of<std::ios_base, L>, 
   ChainExpr<typename ET<L>::expression_type, 
             AssociationEndOp<RESULT, TARGETCLASS>
   > >::type
@@ -362,8 +361,8 @@ template <class L, class R>
 typename disable_if_c
   <IsDomainVisitorBaseOf<R>::value |
    IsDomainVisitorBaseOf<L>::value |
-   is_base_of<OpBase,R>::value |
-   is_base_of<OpBase,L>::value,
+   boost::is_base_of<OpBase,R>::value |
+   boost::is_base_of<OpBase,L>::value,
    ChainExpr<typename ET<L>::expression_type, 
              GetChildrenOp <typename ET<L>::result_type,
                             typename ET<R>::expression_type>
@@ -386,7 +385,7 @@ template <class LKind, class R>
 typename disable_if_c <
   IsDomainVisitorBaseOf<R>::value |
   IsVisitorAsIndexBaseOf<R>::value |
-  is_base_of<OpBase,R>::value,
+  boost::is_base_of<OpBase,R>::value,
   ChainExpr<typename ET<LKind>::result_type, 
             DFSOp<typename ET<R>::argument_type,
                   typename ET<R>::expression_type>
