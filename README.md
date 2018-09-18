@@ -25,9 +25,9 @@ See the comparison of XML traversal code in `tests/library-xsd/driver.cxx` with 
 
 ## Research Papers
 
-* [Toward Native XML Processing Using Multi-paradigm Design in C++](http://www.dre.vanderbilt.edu/~sutambe/documents/pubs/LEESA-Multiparadigm.pdf) in the 5th Annual Boost Conference (BoostCon-2011) ([slides](http://www.dre.vanderbilt.edu/~sutambe/documents/pubs/ppt/LEESA-BoostCon.pdf)) ([video](https://vimeo.com/104812737))
-* [LEESA: Embedding Strategic and XPath-like Object Structure Traversals in C++](http://www.dre.vanderbilt.edu/~sutambe/documents/pubs/LEESA-DSL09.pdf) published in the IFIP Working Conference on Domain Specific Languages (DSL WC), 2009, Oxford UK (slides)
-* [An Embedded Declarative Language for Hierarchical Object Structure Traversal](http://www.dre.vanderbilt.edu/~sutambe/documents/pubs/LEESA-DSPD08.pdf) published in the 2nd International Workshop on Domain-Specific Program Development (DSPD), GPCE 2008, Nashville, Tennessee, October 22, 2008 (slides)
+* [Toward Native XML Processing Using Multi-paradigm Design in C++](doc/LEESA-Multiparadigm.pdf) in the 5th Annual Boost Conference (BoostCon-2011) ([slides](doc/LEESA-BoostCon.pdf)) ([video](https://vimeo.com/104812737))
+* [LEESA: Embedding Strategic and XPath-like Object Structure Traversals in C++](doc/LEESA-DSL09.pdf) published in the IFIP Working Conference on Domain Specific Languages (DSL WC), 2009, Oxford UK (slides)
+* [An Embedded Declarative Language for Hierarchical Object Structure Traversal](doc/LEESA-DSPD08.pdf) published in the 2nd International Workshop on Domain-Specific Program Development (DSPD), GPCE 2008, Nashville, Tennessee, October 22, 2008 (slides)
 
 ## Installation
 
