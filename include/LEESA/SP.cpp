@@ -1,5 +1,5 @@
-#ifndef __SP_CPP
-#define __SP_CPP
+#ifndef LEESA_SP_CPP
+#define LEESA_SP_CPP
 
 #include "LEESA/Sequence.hpp"
 
@@ -1100,5 +1100,5 @@ FUNCTIONS_FOR_SP_OP_WITH_2CUSTOMIZABLE_STRATEGIES(AroundFullTD);
 } // namespace LEESA
 
 
-#endif // __SP_CPP
+#endif // LEESA_SP_CPP
 

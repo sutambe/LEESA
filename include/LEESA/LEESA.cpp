@@ -1,5 +1,5 @@
-#ifndef __LEESA_CPP
-#define __LEESA_CPP
+#ifndef LEESA_CPP
+#define LEESA_CPP
 
 #include "LEESA/Kind_Traits.h"
 #include "LEESA/Concepts.h"
@@ -25,7 +25,11 @@
   typedef typename ET< L >::expression_type ParentKindExpr;                 \
   typedef typename ET< OP >::argument_kind ChildKind;                       \
   typedef typename ParentKindExpr::result_kind ParentKind;                  \
-  typedef ChainExpr<ParentKindExpr, OP > ChainExpr;
+  typedef ChainExpr<ParentKindExpr, OP > ChainExpr;                         \
+  const ChildKind * const child_kind_unused = 0;                            \
+  const ParentKind * const parent_kind_unused = 0;                          \
+  (void) child_kind_unused;                                                 \
+  (void) parent_kind_unused;
 
 // Forward declarations of operators. Definitions in LEESA_Operators.cpp
 // Forward declarations are necessary here for Expression_Traits (defined next)
@@ -243,5 +247,5 @@ evaluate (Para & p, Expr e)
 #include "LEESA/SP_Accumulation.cpp"
 #include "LEESA/AP.cpp"
 
-#endif // __LEESA_CPP
+#endif // LEESA_CPP
 

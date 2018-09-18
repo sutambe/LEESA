@@ -1,5 +1,5 @@
-#ifndef __SEQUENCE_HPP
-#define __SEQUENCE_HPP
+#ifndef LEESA_SEQUENCE_HPP
+#define LEESA_SEQUENCE_HPP
 
 #ifdef LEESA_SUPPORTS_VARIADIC_TEMPLATES 
 
@@ -213,5 +213,5 @@ using boost::mpl::contains;
 
 }
 
-#endif // __SEQUENCE_HPP
+#endif // LEESA_SEQUENCE_HPP
 

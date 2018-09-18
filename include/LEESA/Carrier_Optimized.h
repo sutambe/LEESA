@@ -1,5 +1,5 @@
-#ifndef __CARRIER_OPTIMIZED_H_
-#define __CARRIER_OPTIMIZED_H_
+#ifndef LEESA_CARRIER_OPTIMIZED_H
+#define LEESA_CARRIER_OPTIMIZED_H
 
 #ifndef DOMAIN_NAMESPACE
 #error "Please #define DOMAIN_NAMESPACE"
@@ -237,5 +237,5 @@ namespace std {
 
 #include "LEESA/Carrier_Optimized.cpp"
 
-#endif //  __CARRIER_OPTIMIZED_H_
+#endif //  LEESA_CARRIER_OPTIMIZED_H
 

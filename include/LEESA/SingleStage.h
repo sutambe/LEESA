@@ -1,5 +1,5 @@
-#ifndef __LEESA_SINGLE_STAGE_H_
-#define __LEESA_SINGLE_STAGE_H_
+#ifndef LEESA_SINGLE_STAGE_H
+#define LEESA_SINGLE_STAGE_H
 
 #ifndef DOMAIN_NAMESPACE
 #error "Please #define DOMAIN_NAMESPACE"
@@ -147,5 +147,5 @@ operator >> (Carrier<Kind> & ck, SchemaVisitor & v)
 
 
 
-#endif // __LEESA_SINGLE_STAGE_H_
+#endif // LEESA_SINGLE_STAGE_H
 

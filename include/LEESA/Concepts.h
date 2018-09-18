@@ -1,5 +1,5 @@
-#ifndef __LEESA_CONCEPTS_H
-#define __LEESA_CONCEPTS_H
+#ifndef LEESA_CONCEPTS_H
+#define LEESA_CONCEPTS_H
 
 #include "LEESA/Kind_Traits.h"
 
@@ -226,5 +226,5 @@ namespace LEESA
 */
 } // namespace LEESA
 
-#endif // __LEESA_CONCEPTS_H
+#endif // LEESA_CONCEPTS_H
 

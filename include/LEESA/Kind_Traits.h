@@ -1,5 +1,5 @@
-#ifndef __KIND_TRAITS_H
-#define __KIND_TRAITS_H
+#ifndef LEESA_KIND_TRAITS_H
+#define LEESA_KIND_TRAITS_H
 
 #ifndef DOMAIN_NAMESPACE
 #error "Please #define DOMAIN_NAMESPACE"
@@ -227,5 +227,5 @@ struct IsDescendantVector
 
 } // namespace LEESA
 
-#endif // __KIND_TRAITS_H
+#endif // LEESA_KIND_TRAITS_H
 

@@ -9,19 +9,21 @@
    Fedora: sudo yum install python-devel libxslt-devel libxml2-devel doxygen xerces-c-devel python-setuptools-devel
    Ubuntu: sudo apt-get install python-dev libxslt1-dev libxml2-dev doxygen xsltproc libxerces-c-dev python-setuptools
 
-3. Install lxml Python bindings.
+3. Install Boost C++ libraries
+
+4. Install lxml Python bindings.
    sudo easy_install lxml
 
-4. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
+5. Obtain LEESA from svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA
    svn co svn://svn.dre.vanderbilt.edu/LEESA/trunk/LEESA LEESA
 
-5. Set $LEESA_ROOT
+6. Set $LEESA_ROOT, $XSD_ROOT, $BOOST_ROOT environment variables
 
-6. make generate
+7. make generate
 
-7. make driver
+8. make driver
 
-8. ./driver library.xml
+9. ./driver library.xml
 
 
 Windows
@@ -45,4 +47,4 @@ Windows
 
 7. Run driver
    driver.exe library.xml
-   
+

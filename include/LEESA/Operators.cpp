@@ -965,7 +965,7 @@ SelectSubSet (Iter begin, Iter end)
   LEESA_ASSERT((LEESA::DomainKindConcept<Kind>));
 
   typedef typename ET<Kind>::result_type result_type;
-  typedef typename ET<Kind>::result_kind result_kind;
+  // typedef typename ET<Kind>::result_kind result_kind; // unused
   
   return SelectorOp<result_type> (begin, end);
 }

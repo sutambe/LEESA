@@ -1,5 +1,5 @@
-#ifndef __CARRIER_SIMPLE_H_
-#define __CARRIER_SIMPLE_H_
+#ifndef LEESA_CARRIER_SIMPLE_H
+#define LEESA_CARRIER_SIMPLE_H
 
 #ifndef DOMAIN_NAMESPACE
 #error "Please #define DOMAIN_NAMESPACE"
@@ -218,5 +218,5 @@ namespace std
   }            
 }
 
-#endif // __CARRIER_SIMPLE_H_
+#endif // LEESA_CARRIER_SIMPLE_H
 

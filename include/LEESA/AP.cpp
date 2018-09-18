@@ -1,5 +1,5 @@
-#ifndef __AP_CPP
-#define __AP_CPP
+#ifndef LEESA_AP_CPP
+#define LEESA_AP_CPP
 
 #include "LEESA/Sequence.hpp"
 
@@ -457,5 +457,5 @@ AP(Strategy const & s, From, To)
 
 } // namespace LEESA
 
-#endif // __AP_CPP 
+#endif // LEESA_AP_CPP 
 

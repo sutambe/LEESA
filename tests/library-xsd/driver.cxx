@@ -21,6 +21,7 @@ using std::endl;
 using boost::cref;
 using namespace library;
 using namespace boost::tuples;
+using namespace boost::placeholders;
 
 #ifdef WITH_LEESA
 
@@ -431,10 +432,10 @@ struct ComposedIterator2
 
 template <class Context, class Expr>
 typename ComposedIterator2<Expr>::type
-evaluate_lazy(Context &, Expr e)
+evaluate_lazy(Context &c, Expr e)
 {
-  int i = e;
-  return i;
+  BOOST_AUTO(result, e(c));
+  return e;
 }
 
 };
@@ -452,6 +453,7 @@ int main (int argc, char* argv[])
   try
   {
     timeval start, end;
+    MyVisitor v;
     
     gettimeofday(&start, 0);
     std::auto_ptr<catalog> c (catalog_ (argv[1]));
@@ -501,27 +503,21 @@ int main (int argc, char* argv[])
     //std::copy(died_seq.begin(), died_seq.end(), std::ostream_iterator<died> (std::cout, "\n"));
 #endif
 #ifdef TEST8
-    MyVisitor v;
     visit(*c, v);
 #endif
 #ifdef TEST9
-    MyVisitor v;
     pair_caller_many(*c, v);
 #endif
 #ifdef TEST10
-    MyVisitor v;
     pair_caller_single(*c, v);
 #endif
 #ifdef TEST11
-    MyVisitor v;
     fulltd(*c, v);
 #endif
 #ifdef TEST12
-    MyVisitor v;
     aroundfulltd(*c, v);
 #endif
 #ifdef TEST13
-    MyVisitor v;
     membersof(*c, v);
 #endif
 #ifdef TEST20

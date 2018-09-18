@@ -1,5 +1,5 @@
-#ifndef __LEESA_H
-#define __LEESA_H
+#ifndef LEESA_H
+#define LEESA_H
 
 #ifndef DOMAIN_NAMESPACE
 #error "Please define DOMAIN_NAMESPACE."
@@ -16,5 +16,5 @@
 // FOLLOWED_BY defined above is used in LEESA.cpp
 #include "LEESA/LEESA.cpp"
 
-#endif // __LEESA_H
+#endif // LEESA_H
 

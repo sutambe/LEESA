@@ -1,5 +1,5 @@
-#ifndef __CARRIER_OPTIMIZED_CPP_
-#define __CARRIER_OPTIMIZED_CPP_
+#ifndef LEESA_CARRIER_OPTIMIZED_CPP
+#define LEESA_CARRIER_OPTIMIZED_CPP
 
 #include "LEESA/Carrier_Optimized.h"
 #include <stdexcept>
@@ -618,5 +618,5 @@ namespace std
 }
 
 
-#endif // __CARRIER_OPTIMIZED_CPP_
+#endif // LEESA_CARRIER_OPTIMIZED_CPP
 

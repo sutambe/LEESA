@@ -1,5 +1,5 @@
-#ifndef __SP_BREADTH_FIRST_CPP
-#define __SP_BREADTH_FIRST_CPP
+#ifndef LEESA_SP_BREADTH_FIRST_CPP
+#define LEESA_SP_BREADTH_FIRST_CPP
 
 namespace LEESA {
 
@@ -151,7 +151,7 @@ struct Star
     typename disable_if<empty<ChildrenVector>, void>::type 
     dispatch(typename ET<Kind>::argument_type const & arg, ChildrenVector *)
     {
-      typedef typename ET<Kind>::argument_kind argument_kind;
+      // typedef typename ET<Kind>::argument_kind argument_kind; // unused
       typedef typename ET<Kind>::argument_type argument_type;
       typedef typename front<ChildrenVector>::type Head;
       typedef typename pop_front<ChildrenVector>::type Tail;
@@ -207,5 +207,5 @@ LEVEL_DESCENDANTS_OF_FUNCTIONS(10,Underbar,Underbar,Underbar,Underbar,Underbar,U
 
 } // namespace LEEESA
 
-#endif // __SP_BREADTH_FIRST_CPP
+#endif // LEESA_SP_BREADTH_FIRST_CPP
 
